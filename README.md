@@ -78,3 +78,11 @@ You can make your own map using these tags in this format:-
 	] 
 }
 ```
+
+To specify where the game starts and ends, use "start" and "end" as nameOfPlace.
+
+Check the map.json file present for reference.
+
+Have fun!
+
+
