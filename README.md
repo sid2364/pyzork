@@ -4,17 +4,28 @@ You can design the entire map with the __map.json__ file. This includes putting 
 
 You can make your own map using these tags in this format:-
 
-"nameOfPlace": { 
+"nameOfPlace": {
+
 	"description": "Description of what the player sees here.",
-	"directions": { _
-	  "north-west": "somePlaceThatIsNorthWestOfHere", __
-	  "south": "somePlaceThatIsSouthOfHere" __
-	}, __
-	"prerequisites": [ __
-	  { __
-		"objectRequiredToGetToThisPlace": { __
-		  "problem": "Message displayed if player does not have the object.", __
-		  "solution": "Message displayed if player has the object and tries to enter." __
+
+	"directions": {
+
+	  "north-west": "somePlaceThatIsNorthWestOfHere",
+
+	  "south": "somePlaceThatIsSouthOfHere"
+
+	},
+
+	"prerequisites": [
+
+	  { 
+
+		"objectRequiredToGetToThisPlace": {
+
+		  "problem": "Message displayed if player does not have the object.", 
+
+		  "solution": "Message displayed if player has the object and tries to enter."
+
 		} __
 	  } __
 	], __
