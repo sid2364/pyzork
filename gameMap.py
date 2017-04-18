@@ -20,25 +20,41 @@ fighters = "fighters"
 killable = "killable"
 altDescription = "altDescription"
 mustUse = "mustUse"
+openObject = "openObject"
+canOpen = "canOpen"
+onOpen = "onOpen"
+forOpen = "forOpen"
+action = "action"
+objectAdd = "objectAdd"
+
+def _byteify(data, ignore_dicts = False):
+	if isinstance(data, unicode):
+		return data.encode('utf-8')
+	if isinstance(data, list):
+		return [ _byteify(item, ignore_dicts=True) for item in data ]
+	if isinstance(data, dict) and not ignore_dicts:
+		return {
+		_byteify(key, ignore_dicts=True): _byteify(value, ignore_dicts=True)
+		for key, value in data.iteritems()
+		}
+	return data
+
 
 class Map:
 	def __init__(self):
 		with open(map_file, 'r') as map_f:
-			self.fsm = json.load(map_f)
+			self.fsm = json.load(map_f, object_hook=_byteify)
+			print(self.fsm)
+			
 
-	'''
-	Returns
-		0, successfully moved to new position
-		1, cannot go in that direction
-		2, doesn't have prerequisites
-	'''
 	def goToNextState(self, p_player, p_direction):
+		print("Trying to go "+p_direction)
 		prerequisites_d = {}
 		try:
 			newState = self.fsm[p_player.position][directions][p_direction]
 		except KeyError:
 			print("There is nothing " + p_direction + ".")
-			return 1
+			return
 		print(newState)
 		try:
 			prerequisites_d =  self.fsm[newState][prerequisites]
@@ -51,7 +67,7 @@ class Map:
 						print(item[key][problem])
 					except KeyError:
 						print("You cannot go there.")
-					return 2
+					return
 				else:
 					try:
 						print(item[key][solution])
@@ -59,30 +75,25 @@ class Map:
 						continue
 		p_player.moveToNewState(newState, p_direction)
 		self.whereAmI(p_player)
-		return 0
+		return
 
-	'''
-	Returns
-		True, took item
-		False, cannot take item
-	'''
 	def takeObject(self, p_player, p_object):
 		try:
 			obj_l = self.fsm[p_player.position][objects]
+			if p_object in p_player.have:
+				print("You already have that!")
+				return
 			for obj in obj_l:
 				for key in obj:
 					if p_object == key:
 						print(obj[key][message])
 						if obj[key][take]:
 							p_player.takeItem(p_object)
-						return obj[key][take]
-			if set([p_object]) < set(p_player.have):
-				print("You already have that! And you see no such thing here.")
-			else:
-				print("You see no such thing here.")
+							obj[key][take] = False
+						return
+			print("You see no such thing here.")
 		except KeyError:
-			print("There is nothing here you can take.")
-			return False
+			print("You cannot do that.")
 		
 	def killFighter(self, p_player, p_fighter, p_weapon):
 		foundFighter = None
@@ -142,6 +153,36 @@ class Map:
 		except KeyError: # map has no description (but, why?)
 			print("There is darkness everywhere. All you can hear is your heavy breathing...")
 			
-		
+	
+	def openObject(self, p_player, p_object):
+		try:
+                        obj_l = self.fsm[p_player.position][objects]
+                        for obj in obj_l:
+                                for key in obj:
+                                        if p_object == str(key):
+                                                if obj[key][openObject][canOpen]:
+							if set(obj[key][openObject][forOpen]).\
+									issubset(set(p_player.have)) or \
+									obj[key][openObject][forOpen] == []:
+								try:
+									print(obj[key][openObject]\
+										[onOpen][action])
+									# TODO call to grammar function
+								except KeyError:
+									pass
+								# Seperate try-except because action/objectAdd
+								try:
+									print(obj[key][openObject][onOpen][objectAdd])
+									self.fsm[p_player.position][objects].append(obj[key][openObject][onOpen][objectAdd])
+	                                                        	print(obj[key][openObject][onOpen][message])
+									obj[key][openObject][canOpen] = False	
+								except KeyError:
+									pass
+								return
+			print("That can't be opened.")
+                except KeyError:
+                        print("You cannot do that.")
+
+
 if __name__ == "__main__":
 	map_o = Map()

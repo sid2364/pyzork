@@ -23,7 +23,7 @@
     ]
   },
   "dragonCell": {
-    "description": "You see a staircase leading into the darkness in the north, a steel gate to the south and a large corridor to the east.",
+    "description": "You see a staircase leading into the darkness in the north and a steel gate to the south.",
     "directions": {
       "west": "start",
       "north": "dungeon",
@@ -35,13 +35,20 @@
         "dragon": {
           "take": false,
           "message": "You cannot be serious.",
-	  "description": "There is a giant dragon that lay sleeping in front of it. It seems to be guarding a passage way."
+	  "description": "There is a giant dragon that lay sleeping in front of it. It seems to be guarding a passage way headed east."
         }
       },
       {
         "gate": {
           "take": false,
-          "message": "You can't take the gate."
+          "message": "You can't take the gate.",
+	  "openObject": {
+		"canOpen": true,
+		"forOpen": ["key"],
+		"onOpen": {
+			"action": "go south"
+			  }
+	  }
         }
       }
     ],
@@ -49,7 +56,7 @@
       {
 	"dragon": {
 	  "killable": true,
-	  "altDescription": "You see the giant dragon you had slain with it's entrails strewn across the stone floor.",
+	  "altDescription": "You see the giant dragon you had slain with it's entrails strewn across the stone floor. There is a passage that leads you east.",
 	  "mustUse": [
 		"sword",
 		"spear",
@@ -73,10 +80,24 @@
     },
     "objects": [
       {
-        "key": {
-          "take": true,
-          "description": "There is a single key lying on the floor.",
-          "message": "You have a key. But you do not know what it opens."
+        "chest": {
+          "take": false,
+          "description": "You see a chest on the floor.",
+          "message": "The chest is too heavy to lift.",
+	  "openObject": {
+                "canOpen": true,
+                "forOpen": [],
+                "onOpen": {
+                        "objectAdd": {
+                                "key": {
+					"take": true,
+					"description": "A single key lies inside the chest on a velvet cloth.",
+					"message": "You have a key. But you do not know what it opens."
+				       }
+                                     },
+                        "message": "You open the chest and find a key inside."
+                          }
+          }
         }
       }
     ]
