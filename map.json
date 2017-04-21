@@ -1,0 +1,116 @@
+{
+  "start": {
+    "description": "You find yourself in a dark empty crypt. There is an eerie feel to this place.",
+    "directions": {
+      "east": "dragonCell"
+    },
+    "objects": [
+      {
+        "candle": {
+          "take": false,
+          "description": "The only light source is a small candle burning in the corner.",
+          "message": "It's almost out, and is stuck fast to the ground."
+        }
+      },
+      {
+        "bone": {
+          "take": true,
+          "description": "You see a pile of bones in front of you and a door towards the east.",
+          "message": "You now have a bone."
+        },
+        "": {}
+      }
+    ]
+  },
+  "dragonCell": {
+    "description": "Lo and behold, a giant dragon lay sleeping in front of you. It seems as if it has been pacified by magical chains that bind it's neck and limbs to the ground. You see a staircase leading into the darkness in the north, a steel gate to the south and a large corridor to the east. You cannot see where that leads you.",
+    "directions": {
+      "west": "start",
+      "north": "dungeon",
+      "south": "weaponsRoom",
+      "east": "portcullis"
+    },
+    "objects": [
+      {
+        "dragon": {
+          "take": false,
+          "message": "You cannot be serious."
+        }
+      },
+      {
+        "gate": {
+          "take": false,
+          "message": "You can't take the gate."
+        }
+      }
+    ]
+  },
+  "portcullis": {
+    "description": "A portcullis is drawn up. You are standing just outside a sprawling castle with dark walls.",
+    "directions": {
+      "west": "dragonCell",
+      "east": "end"
+    }
+  },
+  "dungeon": {
+    "description": "You enter a small dungeon where you see ancient runes scrawled across the walls.",
+    "directions": {
+      "south": "dragonCell"
+    },
+    "objects": [
+      {
+        "key": {
+          "take": true,
+          "description": "There is a single key lying on the floor.",
+          "message": "You have a key. But you do not know what it opens."
+        }
+      }
+    ]
+  },
+  "weaponsRoom": {
+    "description": "You enter a room full of weapons. You see swords, knives, spears, staffs, and hammers displayed all around you. Large windows illuminate the room with the daylight outside.",
+    "directions": {
+      "north": "dragonCell"
+    },
+    "prerequisites": [
+      {
+        "key": {
+          "problem": "The gate is locked.",
+          "solution": "You unlock the gate and enter."
+        }
+      }
+    ],
+    "objects": [
+      {
+        "sword": {
+          "take": true,
+          "message": "Good choice. You now have a sword."
+        }
+      },
+      {
+        "spear": {
+          "take": true,
+          "message": "Great choice! You now have a spear."
+        }
+      },
+      {
+        "knife": {
+          "take": true,
+          "message": "You now have a knife."
+        }
+      },
+      {
+        "hammer": {
+          "take": true,
+          "message": "You now have a hammer."
+        }
+      },
+      {
+        "staff": {
+          "take": true,
+          "message": "Excellent choice. You now have a staff."
+        }
+      }
+    ]
+  }
+}
