@@ -16,6 +16,10 @@ message = "message"
 noPrerequisites = "noPrerequisites"
 problem = "problem"
 solution = "solution"
+fighters = "fighters"
+killable = "killable"
+altDescription = "altDescription"
+mustUse = "mustUse"
 
 class Map:
 	def __init__(self):
@@ -63,9 +67,6 @@ class Map:
 		False, cannot take item
 	'''
 	def takeObject(self, p_player, p_object):
-		if set([p_object]) < set(p_player.have):
-			print("You already have that.")
-			return False
 		try:
 			obj_l = self.fsm[p_player.position][objects]
 			for obj in obj_l:
@@ -75,20 +76,72 @@ class Map:
 						if obj[key][take]:
 							p_player.takeItem(p_object)
 						return obj[key][take]
+			if set([p_object]) < set(p_player.have):
+				print("You already have that! And you see no such thing here.")
+			else:
+				print("You see no such thing here.")
 		except KeyError:
-			print("There is nothing here you can take")
+			print("There is nothing here you can take.")
 			return False
 		
+	def killFighter(self, p_player, p_fighter, p_weapon):
+		foundFighter = None
+		try:
+			fighters_l = self.fsm[p_player.position][fighters]
+			for fighter in fighters_l:
+				for key in fighter:
+					if p_fighter == str(key):
+						foundFighter = str(key)
+						if foundFighter[0].upper() == foundFighter[0]:
+							say = foundFighter
+						else:
+							say = "The " + foundFighter
+						say += " ogles you keenly."
+						print(say)
+						if not fighter[key][killable]:
+							say = "You cannot kill "
+							if foundFighter[0].upper() != foundFighter[0]:
+								say += "the "
+							say = foundFighter + "."
+							return
+						fighter[key][killable] = False
+						if p_weapon in fighter[key][mustUse]:
+							say = "You draw your " + p_weapon + \
+								" and slay "
+							if foundFighter[0].upper() != foundFighter[0]:
+								say += "the "
+	                	                        say += foundFighter + "."
+							print(say)
+						else:
+							say = "You do not possess a weapon worthy " + \
+								"of this battle. You decide to live " + \
+								"and let live."
+							print(say)
+							return
+						for obj in self.fsm[p_player.position][objects]:
+							for k in obj:
+								if k == foundFighter:
+									obj[k][description] = \
+			                                	        str(fighter[key][altDescription])
+        		        	                        	obj[k][take] = False
+		except KeyError:
+			print("There is no " + p_fighter + " you can tussle with here. With a word you can get what you came for.")
+			
 	'''
 	Prints the description of current position
 	'''
 	def whereAmI(self, p_player):
 		try:
 			print(self.fsm[p_player.position][description])
+			for obj in self.fsm[p_player.position][objects]:
+				for k in obj:
+					try:
+						print(obj[k][description])
+					except:
+						pass
 		except KeyError: # map has no description (but, why?)
-			print("There is darkness all around. All you can sense is your heavy breathing.")
+			print("There is darkness everywhere. All you can hear is your heavy breathing...")
+			
 		
-
-
 if __name__ == "__main__":
 	map_o = Map()

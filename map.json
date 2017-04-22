@@ -23,7 +23,7 @@
     ]
   },
   "dragonCell": {
-    "description": "Lo and behold, a giant dragon lay sleeping in front of you. It seems as if it has been pacified by magical chains that bind it's neck and limbs to the ground. You see a staircase leading into the darkness in the north, a steel gate to the south and a large corridor to the east. You cannot see where that leads you.",
+    "description": "You see a staircase leading into the darkness in the north, a steel gate to the south and a large corridor to the east.",
     "directions": {
       "west": "start",
       "north": "dungeon",
@@ -34,7 +34,8 @@
       {
         "dragon": {
           "take": false,
-          "message": "You cannot be serious."
+          "message": "You cannot be serious.",
+	  "description": "There is a giant dragon that lay sleeping in front of it. It seems to be guarding a passage way."
         }
       },
       {
@@ -42,6 +43,19 @@
           "take": false,
           "message": "You can't take the gate."
         }
+      }
+    ],
+    "fighters": [
+      {
+	"dragon": {
+	  "killable": true,
+	  "altDescription": "You see the giant dragon you had slain with it's entrails strewn across the stone floor.",
+	  "mustUse": [
+		"sword",
+		"spear",
+		"staff"
+	  ]
+	}
       }
     ]
   },
