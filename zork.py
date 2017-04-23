@@ -67,7 +67,7 @@ def test():
 	map_o.openObject(player_o, "dragon")
 	map_o.openObject(player_o, "balloon")
 	map_o.openObject(player_o, "gate")
-	
+	map_o.whereAmI(player_o)
 
 def main():
 	map_o = gameMap.Map()
