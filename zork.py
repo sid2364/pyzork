@@ -31,7 +31,7 @@ def test():
 	print(player_o.have)
 	
 	map_o.goToNextState(player_o, "north")
-	print("\n\n")
+	print("\n\nKJANSKJNASKJNAKSJNASKJNAKSJn")
 	map_o.killFighter(player_o, "dragon", "dagger")
 	map_o.killFighter(player_o, "dragon", "sword")
 
@@ -49,6 +49,7 @@ def test():
 
 	print("\n\n")
 	player_o = player.Player()
+	map_o = gameMap.Map()
 	map_o.goToNextState(player_o, "east")
 	map_o.goToNextState(player_o, "north")
 	map_o.openObject(player_o, "ketchup")
@@ -68,6 +69,15 @@ def test():
 	map_o.openObject(player_o, "balloon")
 	map_o.openObject(player_o, "gate")
 	map_o.whereAmI(player_o)
+	map_o.goToNextState(player_o, "south")
+	map_o.takeObject(player_o, "sword")
+	print(player_o.have)
+	map_o.takeObject(player_o, "sword")
+	print(player_o.have)
+	map_o.takeObject(player_o, "spear")
+	map_o.takeObject(player_o, "asd")
+	print(player_o.have)
+		
 
 def main():
 	map_o = gameMap.Map()

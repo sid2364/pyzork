@@ -88,6 +88,7 @@ class Map:
 					if p_object == key:
 						print(obj[key][message])
 						if obj[key][take]:
+							print("TAKING")
 							p_player.takeItem(p_object)
 							obj[key][take] = False
 						return
@@ -97,6 +98,9 @@ class Map:
 		
 	def killFighter(self, p_player, p_fighter, p_weapon):
 		foundFighter = None
+		if p_weapon not in p_player.have:
+			print("You do not possess this " + p_weapon + " of which you speak.")
+			return
 		try:
 			fighters_l = self.fsm[p_player.position][fighters]
 			for fighter in fighters_l:
