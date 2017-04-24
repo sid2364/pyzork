@@ -27,14 +27,14 @@ forOpen = "forOpen"
 action = "action"
 objectAdd = "objectAdd"
 
-def _byteify(data, ignore_dicts = False):
+def byteify(data, ignore_dicts = False):
 	if isinstance(data, unicode):
 		return data.encode('utf-8')
 	if isinstance(data, list):
-		return [ _byteify(item, ignore_dicts=True) for item in data ]
+		return [ byteify(item, ignore_dicts=True) for item in data ]
 	if isinstance(data, dict) and not ignore_dicts:
 		return {
-		_byteify(key, ignore_dicts=True): _byteify(value, ignore_dicts=True)
+		byteify(key, ignore_dicts=True): byteify(value, ignore_dicts=True)
 		for key, value in data.iteritems()
 		}
 	return data
@@ -43,12 +43,11 @@ def _byteify(data, ignore_dicts = False):
 class Map:
 	def __init__(self):
 		with open(map_file, 'r') as map_f:
-			self.fsm = json.load(map_f, object_hook=_byteify)
+			self.fsm = json.load(map_f, object_hook=byteify)
 			print(self.fsm)
 			
 
 	def goToNextState(self, p_player, p_direction):
-		print("Trying to go "+p_direction)
 		prerequisites_d = {}
 		try:
 			newState = self.fsm[p_player.position][directions][p_direction]
@@ -88,14 +87,39 @@ class Map:
 					if p_object == key:
 						print(obj[key][message])
 						if obj[key][take]:
-							print("TAKING")
 							p_player.takeItem(p_object)
 							obj[key][take] = False
+							# Removing item from the map
+							del obj[key]
+							obj_l[:] = [d for d in obj_l if d]	
 						return
 			print("You see no such thing here.")
 		except KeyError:
 			print("You cannot do that.")
+	
+	def dropObject(self, p_player, p_object):
+		if p_object not in p_player.have:
+			print("Cannot drop something you don't have!")
+			return
+		try:
+			obj_l = self.fsm[p_player.position][objects]
+		except KeyError:
+			# No objects mentioned - create object list and redo
+			self.fsm[p_player.position][objects] = []
+			self.dropObject(p_player, p_object)
+			return
+		obj_d = {
+				p_object: {
+					"take": True,
+					"message": "You have picked up the " + p_object + ".",
+					"description": "You see the " + p_object + " you dropped on the ground."
+				  }
+			}
+		obj_l.append(obj_d)
+		p_player.have.remove(p_object)
+		print("Dropped.")
 		
+
 	def killFighter(self, p_player, p_fighter, p_weapon):
 		foundFighter = None
 		if p_weapon not in p_player.have:
@@ -148,6 +172,9 @@ class Map:
 	def whereAmI(self, p_player):
 		try:
 			print(self.fsm[p_player.position][description])
+		except KeyError: # Map region has no description (but why?)
+			print("There is darkness all around you. All you can hear is your heavy breathing...")
+		try:
 			for obj in self.fsm[p_player.position][objects]:
 				for k in obj:
 					try:
@@ -155,8 +182,7 @@ class Map:
 					except:
 						pass
 		except KeyError: # map has no description (but, why?)
-			print("There is darkness everywhere. All you can hear is your heavy breathing...")
-			
+			pass	
 	
 	def openObject(self, p_player, p_object):
 		try:

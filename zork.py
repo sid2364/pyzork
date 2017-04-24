@@ -77,7 +77,18 @@ def test():
 	map_o.takeObject(player_o, "spear")
 	map_o.takeObject(player_o, "asd")
 	print(player_o.have)
-		
+	
+	print("\n\n")
+	map_o.goToNextState(player_o, "north")
+	map_o.goToNextState(player_o, "east")
+	print("asdasdn\n\n")
+	map_o.dropObject(player_o, "sword")
+	map_o.dropObject(player_o, "blue")
+	map_o.whereAmI(player_o)
+	print(player_o.have)
+	map_o.takeObject(player_o, "something")
+	map_o.takeObject(player_o, "sword")
+	print(player_o.have)
 
 def main():
 	map_o = gameMap.Map()
