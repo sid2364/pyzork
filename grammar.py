@@ -11,6 +11,8 @@ unlock_words = ["open", "unlock"]
 look_words = ["look", "see", "gaze"]
 object_wildcard = "object_"
 fighter_wildcard = "fighter_"
+with_ = "with"
+from_ = "from"
 
 what_next = ["What do you do? ", "What next? ", \
 		"What do you do next? "]
@@ -20,5 +22,8 @@ grammar = [[[move_words], [direction_words]],\
 		[[fight_words], fighter_wildcard],\
 		[[drop_words], object_wildcard],\
 		[[unlock_words], object_wildcard],\
-		[[look_words]]
-		]
+		[[look_words]],\
+		[[take_words], object_wildcard, from_, object_wildcard],\
+		[[fight_words], fighter_wildcard, with_, object_wildcard],\
+		[with_, object_wildcard, [fight_words], fighter_wildcard],\
+		[from_, object_wildcard, [take_words], object_wildcard]]
