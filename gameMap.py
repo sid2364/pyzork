@@ -46,8 +46,12 @@ class Map:
 		with open(map_file, 'r') as map_f:
 			self.fsm = json.load(map_f, object_hook=byteify)
 			print(self.fsm)
-			
-
+	
+	def help():
+		print("Help")		
+	'''
+	Goes to the next state in the direction specified, if possible
+	'''
 	def goToNextState(self, p_player, p_direction):
 		prerequisites_d = {}
 		try:
@@ -77,6 +81,9 @@ class Map:
 		self.whereAmI(p_player)
 		return
 
+	'''
+	Tries to take the object from current position
+	'''
 	def takeObject(self, p_player, p_object):
 		try:
 			obj_l = self.fsm[p_player.position][objects]
@@ -98,6 +105,9 @@ class Map:
 		except KeyError:
 			print("You cannot do that.")
 	
+	'''
+	Drops the object in the current position
+	'''
 	def dropObject(self, p_player, p_object):
 		if p_object not in p_player.have:
 			print("Cannot drop something you don't have!")
@@ -120,7 +130,9 @@ class Map:
 		p_player.have.remove(p_object)
 		print("Dropped.")
 		
-
+	'''
+	Tries to kill the fighter in the current position
+	'''
 	def killFighter(self, p_player, p_fighter, p_weapon):
 		foundFighter = None
 		if p_weapon not in p_player.have:
@@ -184,7 +196,9 @@ class Map:
 						pass
 		except KeyError: # map has no description (but, why?)
 			pass	
-	
+	'''
+	Tries to open object in the current position
+	'''
 	def openObject(self, p_player, p_object):
 		try:
                         obj_l = self.fsm[p_player.position][objects]
@@ -214,6 +228,9 @@ class Map:
                 except KeyError:
                         print("You cannot do that.")
 
+	'''
+	Returns list of objects present in the current position
+	'''
 	def getObjectList(self, p_player):
 		objects_ret = []
 		try:
@@ -225,6 +242,9 @@ class Map:
 			return []
 		return objects_ret
 
+	'''
+	Returns list of fighters present in the current position
+	'''
 	def getFighterList(self, p_player):
 		fighters_ret = []
 		try:

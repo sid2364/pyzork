@@ -9,11 +9,12 @@ fight_words = ["fight", "kill", "strike", "hit", "beat", "injur"]
 take_words = ["take", "pick", "lift"]
 drop_words = ["drop", "leave"]
 unlock_words = ["open", "unlock"]
-look_words = ["look", "see", "gaze"]
+look_words = ["look", "see", "gaze", "where"]
 object_wildcard = []
 fighter_wildcard = []
 with_ = "with"
 from_ = "from"
+help_ = "help"
 
 what_next = ["What do you do? ", "What next? ", \
 		"What do you do next? "]
@@ -24,9 +25,9 @@ dropObject = "dropObject"
 killFighter = "killFighter"
 whereAmI = "whereAmI"
 openObject = "openObject"
+helpF = "help"
 
-
-stopwords = list(set(corpus.stopwords.words("english")) - set(["with", "from"]))
+stopwords = list(set(corpus.stopwords.words("english")) - set(["with", "from", "where"]))
 
 grammar = [[move_words, direction_words],\
 		[take_words, object_wildcard],\
@@ -37,7 +38,8 @@ grammar = [[move_words, direction_words],\
 		[take_words, object_wildcard, from_, object_wildcard],\
 		[fight_words, fighter_wildcard, with_, object_wildcard],\
 		[with_, object_wildcard, fight_words, fighter_wildcard],\
-		[from_, object_wildcard, take_words, object_wildcard]]
+		[from_, object_wildcard, take_words, object_wildcard],\
+		[help_]]
 
 grammarToFunctionMap = {0: goToNextState, \
 		1: takeObject,\
@@ -48,7 +50,8 @@ grammarToFunctionMap = {0: goToNextState, \
 		6: takeObject,\
 		7: killFighter,
 		8: killFighter,\
-		9: takeObject}
+		9: takeObject
+		10: helpF}
 
 class Grammar:
 	def __init__(self):
