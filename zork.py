@@ -1,4 +1,5 @@
 import player
+import grammar
 import gameMap
 
 import pdb
@@ -89,6 +90,25 @@ def test():
 	map_o.takeObject(player_o, "something")
 	map_o.takeObject(player_o, "sword")
 	print(player_o.have)
+	
+	print("\n\n")
+	print(map_o.whereAmI(player_o))
+	print(map_o.getFighterList(player_o))
+	print(map_o.getObjectList(player_o))
+	map_o.goToNextState(player_o, "west")
+	print(map_o.getFighterList(player_o))
+        print(map_o.getObjectList(player_o))
+	#print(grammar.replaceObjects(map_o.getObjectList(player_o)))
+	map_o.goToNextState(player_o, "south")
+	g = grammar.Grammar()
+	print("\n\n")
+	objects = map_o.getObjectList(player_o)
+	fighters = map_o.getFighterList(player_o)
+	#print(grammar.getGrammarType("go to north"))
+	print(g.getGrammarType("take the hammer", objects, fighters))
+	print(g.getGrammarType("take the hat", objects, fighters))
+	print(g.getGrammarType("see", objects, fighters))
+
 
 def main():
 	map_o = gameMap.Map()

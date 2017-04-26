@@ -1,3 +1,4 @@
+from __future__ import print_function, with_statement
 import json
 import sets
 
@@ -213,6 +214,28 @@ class Map:
                 except KeyError:
                         print("You cannot do that.")
 
+	def getObjectList(self, p_player):
+		objects_ret = []
+		try:
+       	                obj_l = self.fsm[p_player.position][objects]
+                        for obj in obj_l:
+               	                for key in obj:
+					objects_ret.append(key)
+		except KeyError:
+			return []
+		return objects_ret
+
+	def getFighterList(self, p_player):
+		fighters_ret = []
+		try:
+			fighters_l = self.fsm[p_player.position][fighters]
+			for fighter in fighters_l:
+				for key in fighter:
+					fighters_ret.append(key)
+		except KeyError:
+			return []
+		
+		return fighters_ret
 
 if __name__ == "__main__":
 	map_o = Map()
