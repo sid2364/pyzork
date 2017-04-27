@@ -73,6 +73,8 @@ class Grammar:
 						return grammarToFunctionMap[index_g], thingMentioned
 					continue
 				if p_input[word_i] in self.grammar[index_g][i]:
+					if p_input[word_i] in direction_words:
+						thingMentioned.append(p_input[word_i])
 					if i == len(self.grammar[index_g]) - 1:
 						return grammarToFunctionMap[index_g], thingMentioned
 					word_i += 1

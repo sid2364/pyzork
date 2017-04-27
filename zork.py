@@ -112,8 +112,14 @@ def test():
 	print(g.getGrammarType("take key from chest"))
 	print(g.getGrammarType("go south"))
 	print(g.getGrammarType("kill the dragon"))
-	print(g.getGrammarType("open the chest I see here blah blah"))
+	ret, ol = g.getGrammarType("open the chest I see here blah blah")
+	method_to_call = getattr(map_o, ret)
+	method_to_call(player_o, *ol)
 
+def do(p_input):
+	functionName, misc = g.getGrammarType(p_input)
+	function = getattr(map_o, functionName)
+	return function(player_o, *misc)
 
 def main():
 	map_o = gameMap.Map()

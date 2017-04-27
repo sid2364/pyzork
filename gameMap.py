@@ -1,6 +1,7 @@
 from __future__ import print_function, with_statement
 import json
 import sets
+import os
 
 map_file = "map.json"
 
@@ -40,15 +41,36 @@ def byteify(data, ignore_dicts = False):
 		}
 	return data
 
+try:
+	input = raw_input
+except NameError:
+	print("Cannot port input.")
+
 
 class Map:
 	def __init__(self):
 		with open(map_file, 'r') as map_f:
 			self.fsm = json.load(map_f, object_hook=byteify)
-			print(self.fsm)
+		os.system('cls' if os.name == 'nt' else 'clear')
+		print("================================================ Z O R K ================================================")
+		print("Welcome to Zork!")
+		print("This is a text based adventure game, where you control your character using commands into the terminal.")
+		print("Type 'help' to display a list of commands you can use.")
+		print("Hope you have fun with the game! Happy adventuring!")
+		print("\nPress enter to begin...")
+		s = input()
+		print("\n")
 	
-	def help():
-		print("Help")		
+	def help(self):
+		print("Zork, help!\nThis is a text based adventure game, where you control your character using commands into the terminal.")
+		print("You may use commands like:-")
+		print("Go north\t\t\tTo move your character in a particular direction.")
+		print("Look\t\t\t\tTo look around you and describe what you see.")
+		print("Pick up banana\t\t\tTo take an object from the environment you are in.")
+		print("Open door\t\t\tTo open the door, duh.")
+		print("Help\t\t\t\tTo display these messages again")
+		print("Hope you have fun with the game! Happy adventuring!")
+
 	'''
 	Goes to the next state in the direction specified, if possible
 	'''
@@ -224,7 +246,7 @@ class Map:
 								except KeyError:
 									pass
 								return
-			print("That can't be opened.")
+			print("That can't be opened. There is no such thing you see here.")
                 except KeyError:
                         print("You cannot do that.")
 
