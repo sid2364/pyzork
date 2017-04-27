@@ -121,11 +121,11 @@ def test():
 
 def do(p_input, map_o, player_o, grammar):
 	functionName, misc = grammar.getGrammarType(p_input)
-	print(misc)
 	if functionName is None:
 		print("Did not catch that...")
 		return
 	function = getattr(map_o, functionName)
+	print(misc)
 	function(player_o, *misc)
 	return
 
@@ -136,8 +136,10 @@ def main():
 	map_o.whereAmI(player_o)
 	
 	said = ""
-	while said != "quit" or said != "q" :
+	while True:
 		said = raw_input(whatNext()).lower()
+		if said == "quit":
+			break
 		do(said, map_o, player_o, gr)
 
 		

@@ -57,11 +57,11 @@ class Map:
 		print("This is a text based adventure game, where you control your character using commands into the terminal.")
 		print("Type 'help' to display a list of commands you can use.")
 		print("Hope you have fun with the game! Happy adventuring!")
-		print("\nPress enter to begin...")
+		print("\nPress enter to begin the adventure...")
 		s = input()
 		print("\n")
 	
-	def help(self):
+	def help(player_o, self):
 		print("Zork, help!\nThis is a text based adventure game, where you control your character using commands into the terminal.")
 		print("You may use commands like:-")
 		print("Go north\t\t\tTo move your character in a particular direction.")
@@ -175,13 +175,14 @@ class Map:
 							say = "The " + foundFighter
 						say += " ogles you keenly."
 						print(say)
+						print(fighter[key][killable])
 						if not fighter[key][killable]:
 							say = "You cannot kill "
 							if foundFighter[0].upper() != foundFighter[0]:
 								say += "the "
 							say = foundFighter + "."
 							return
-						fighter[key][killable] = False
+						print(fighter[key][mustUse])
 						if p_weapon in fighter[key][mustUse]:
 							say = "You draw your " + p_weapon + \
 								" and slay "
@@ -189,6 +190,7 @@ class Map:
 								say += "the "
 	                	                        say += foundFighter + "."
 							print(say)
+							fighter[key][killable] = False
 						else:
 							say = "You do not possess a weapon worthy " + \
 								"of this battle. You decide to live " + \
