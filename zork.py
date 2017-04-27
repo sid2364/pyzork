@@ -105,9 +105,14 @@ def test():
 	objects = map_o.getObjectList(player_o)
 	fighters = map_o.getFighterList(player_o)
 	#print(grammar.getGrammarType("go to north"))
-	print(g.getGrammarType("take the hammer", objects, fighters))
-	print(g.getGrammarType("take the hat", objects, fighters))
-	print(g.getGrammarType("see", objects, fighters))
+	print(g.getGrammarType("take the hammer"))
+	print(g.getGrammarType("take the hat"))
+	print(g.getGrammarType("see"))
+	print(g.getGrammarType("drop the hammer"))
+	print(g.getGrammarType("take key from chest"))
+	print(g.getGrammarType("go south"))
+	print(g.getGrammarType("kill the dragon"))
+	print(g.getGrammarType("open the chest I see here blah blah"))
 
 
 def main():

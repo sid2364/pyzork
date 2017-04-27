@@ -15,6 +15,7 @@ fighter_wildcard = []
 with_ = "with"
 from_ = "from"
 help_ = "help"
+wildcard = "\_(**)_/"
 
 what_next = ["What do you do? ", "What next? ", \
 		"What do you do next? "]
@@ -29,18 +30,6 @@ helpF = "help"
 
 stopwords = list(set(corpus.stopwords.words("english")) - set(["with", "from", "where"]))
 
-grammar = [[move_words, direction_words],\
-		[take_words, object_wildcard],\
-		[fight_words, fighter_wildcard],\
-		[drop_words, object_wildcard],\
-		[unlock_words, object_wildcard],\
-		[look_words],\
-		[take_words, object_wildcard, from_, object_wildcard],\
-		[fight_words, fighter_wildcard, with_, object_wildcard],\
-		[with_, object_wildcard, fight_words, fighter_wildcard],\
-		[from_, object_wildcard, take_words, object_wildcard],\
-		[help_]]
-
 grammarToFunctionMap = {0: goToNextState, \
 		1: takeObject,\
 		2: killFighter,\
@@ -50,42 +39,42 @@ grammarToFunctionMap = {0: goToNextState, \
 		6: takeObject,\
 		7: killFighter,
 		8: killFighter,\
-		9: takeObject
+		9: takeObject,\
 		10: helpF}
+
 
 class Grammar:
 	def __init__(self):
-		self.grammar = []
-		self.object_wildcard = []
-		self.fighter_wildcard = []
-	def resetObjectsAndFighters(self):
 		self.grammar = [[move_words, direction_words],\
-	                [take_words, self.object_wildcard],\
-	                [fight_words, self.fighter_wildcard],\
-	                [drop_words, self.object_wildcard],\
-	                [unlock_words, self.object_wildcard],\
+	                [take_words, wildcard],\
+	                [fight_words, wildcard],\
+	                [drop_words, wildcard],\
+	                [unlock_words, wildcard],\
 	                [look_words],\
-	                [take_words, self.object_wildcard, from_, self.object_wildcard],\
-	                [fight_words, self.fighter_wildcard, with_, self.object_wildcard],\
-	                [with_, self.object_wildcard, fight_words, self.fighter_wildcard],\
-	                [from_, self.object_wildcard, take_words, self.object_wildcard]]
+	                [take_words, wildcard, from_, wildcard],\
+	                [fight_words, wildcard, with_, wildcard],\
+	                [with_, wildcard, fight_words, wildcard],\
+	                [from_, wildcard, take_words, wildcard]]
 
 	def filterInput(self, p_input):
 		return [word for word in word_tokenize(p_input) if word not in stopwords]
 	
-	def getGrammarType(self, p_input, p_objects, p_fighters):
-		self.object_wildcard = p_objects
-		self.fighter_wildcard = p_fighters
-		self.resetObjectsAndFighters()
+	def getGrammarType(self, p_input):
 		p_input = self.filterInput(p_input)
 		word_i = 0
 		selected_i = -1
 		for index_g in range(len(self.grammar)):
 			word_i = 0
+			thingMentioned = []
 			for i in range(len(self.grammar[index_g])):
+				if wildcard in self.grammar[index_g][i]:
+					thingMentioned.append(p_input[word_i])
+					if i == len(self.grammar[index_g]) -1:
+						return grammarToFunctionMap[index_g], thingMentioned
+					continue
 				if p_input[word_i] in self.grammar[index_g][i]:
 					if i == len(self.grammar[index_g]) - 1:
-						return grammarToFunctionMap[index_g]
+						return grammarToFunctionMap[index_g], thingMentioned
 					word_i += 1
 				else:
 					break
