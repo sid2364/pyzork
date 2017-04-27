@@ -25,5 +25,4 @@ class Player:
 			self.have.pop(item)
 			print("Dropped.")
 		except:
-			return 1
-		return 0
+			print("Cannot drop item.")

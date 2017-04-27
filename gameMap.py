@@ -155,7 +155,10 @@ class Map:
 	'''
 	Tries to kill the fighter in the current position
 	'''
-	def killFighter(self, p_player, p_fighter, p_weapon):
+	def killFighter(self, p_player, p_fighter, p_weapon=None):
+		if p_weapon is None:
+			print("With what?")
+			return
 		foundFighter = None
 		if p_weapon not in p_player.have:
 			print("You do not possess this " + p_weapon + " of which you speak.")

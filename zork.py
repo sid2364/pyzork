@@ -6,6 +6,9 @@ import pdb
 
 import random
 
+what_next = ["What do you do? ", "What next? ", \
+                "What do you do next? "]
+
 def whatNext():
 	return what_next[random.randint(0, len(what_next)-1)]
 
@@ -116,24 +119,28 @@ def test():
 	method_to_call = getattr(map_o, ret)
 	method_to_call(player_o, *ol)
 
-def do(p_input):
-	functionName, misc = g.getGrammarType(p_input)
+def do(p_input, map_o, player_o, grammar):
+	functionName, misc = grammar.getGrammarType(p_input)
+	print(misc)
+	if functionName is None:
+		print("Did not catch that...")
+		return
 	function = getattr(map_o, functionName)
-	return function(player_o, *misc)
+	function(player_o, *misc)
+	return
 
 def main():
 	map_o = gameMap.Map()
 	player_o = player.Player()
-	
+	gr = grammar.Grammar()
 	map_o.whereAmI(player_o)
-
+	
+	said = ""
 	while said != "quit" or said != "q" :
-		# map_o.whereAmI(player_o)
 		said = raw_input(whatNext()).lower()
-		if said in direction_words:
-			map_o.goToNextState(player_o, said)
+		do(said, map_o, player_o, gr)
 
 		
 
 if __name__ == "__main__":
-	test()
+	main()

@@ -81,7 +81,7 @@ class Grammar:
 				else:
 					break
 		if selected_i == -1:
-			return None
+			return None, []
 	
 #print(getGrammarType(filterInput("kill the fighter_ with the object_")))
 #print(getGrammarType(filterInput("go to north")))
