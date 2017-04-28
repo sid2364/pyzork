@@ -10,7 +10,6 @@ class Player:
 		self.position = position
 		self.have = have
 		self.direction = direction
-		print(self.position, self.have, self.direction)
 	def moveToNewState(self, position, direction):
 		self.position = position
 		self.direction = direction
