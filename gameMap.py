@@ -28,6 +28,12 @@ onOpen = "onOpen"
 forOpen = "forOpen"
 action = "action"
 objectAdd = "objectAdd"
+directionAdd = "directionAdd"
+alreadyOpen = "alreadyOpen"
+opened = "opened"
+onKill = "onKill"
+alreadyKilled = "alreadyKilled"
+killed = "killed"
 
 def byteify(data, ignore_dicts = False):
 	if isinstance(data, unicode):
@@ -79,9 +85,8 @@ class Map:
 		try:
 			newState = self.fsm[p_player.position][directions][p_direction]
 		except KeyError:
-			print("There is nothing " + p_direction + ".")
+			print("You can't go " + p_direction + ".")
 			return
-		print(newState)
 		try:
 			prerequisites_d =  self.fsm[newState][prerequisites]
 		except KeyError:
@@ -168,6 +173,9 @@ class Map:
 			for fighter in fighters_l:
 				for key in fighter:
 					if p_fighter == str(key):
+						if fighter[key][alreadyKilled][killed]:
+							print(fighter[key][alreadyKilled][message])
+							return
 						foundFighter = str(key)
 						if foundFighter[0].upper() == foundFighter[0]:
 							say = foundFighter
@@ -175,22 +183,26 @@ class Map:
 							say = "The " + foundFighter
 						say += " ogles you keenly."
 						print(say)
-						print(fighter[key][killable])
 						if not fighter[key][killable]:
 							say = "You cannot kill "
 							if foundFighter[0].upper() != foundFighter[0]:
 								say += "the "
 							say = foundFighter + "."
 							return
-						print(fighter[key][mustUse])
-						if p_weapon in fighter[key][mustUse]:
+						if p_weapon in fighter[key][mustUse] or not fighter[key][mustUse]:
 							say = "You draw your " + p_weapon + \
 								" and slay "
 							if foundFighter[0].upper() != foundFighter[0]:
 								say += "the "
 	                	                        say += foundFighter + "."
 							print(say)
-							fighter[key][killable] = False
+							fighter[key][alreadyKilled][killed] = True
+							try:
+								newDirection = fighter[key][onKill][directionAdd]
+								self.fsm[p_player.position][directions].update(newDirection)
+								print(fighter[key][onKill][message])
+							except KeyError:
+								pass
 						else:
 							say = "You do not possess a weapon worthy " + \
 								"of this battle. You decide to live " + \
@@ -227,6 +239,7 @@ class Map:
 	Tries to open object in the current position
 	'''
 	def openObject(self, p_player, p_object):
+		say = "There is no such thing you see here."
 		try:
                         obj_l = self.fsm[p_player.position][objects]
                         for obj in obj_l:
@@ -236,22 +249,32 @@ class Map:
 							if set(obj[key][openObject][forOpen]).\
 									issubset(set(p_player.have)) or \
 									obj[key][openObject][forOpen] == []:
+								if obj[key][openObject][alreadyOpen][opened]:
+									say = obj[key][openObject][alreadyOpen][message]
+									print(say)
+									return
 								try:
-									print(obj[key][openObject]\
-										[onOpen][action])
-									# TODO call to grammar function
+									newDirection = obj[key][openObject][onOpen][directionAdd]
+									self.fsm[p_player.position][directions].update(newDirection)
+									print(obj[key][openObject][onOpen][message])
 								except KeyError:
 									pass
-								# Seperate try-except because action/objectAdd
+								# Seperate try-except because directionAdd/objectAdd may not exist together
 								try:
-									print(obj[key][openObject][onOpen][objectAdd])
 									self.fsm[p_player.position][objects].append(obj[key][openObject][onOpen][objectAdd])
 	                                                        	print(obj[key][openObject][onOpen][message])
-									obj[key][openObject][canOpen] = False	
+								except KeyError:
+									pass
+								try:
+									obj[key][openObject][alreadyOpen][opened] = True
 								except KeyError:
 									pass
 								return
-			print("That can't be opened. There is no such thing you see here.")
+							else:
+								say = "You do not have the required object to open this."
+						else:
+							say = "It's not possible to open the " + p_object + "."
+			print(say)
                 except KeyError:
                         print("You cannot do that.")
 

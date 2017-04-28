@@ -123,7 +123,6 @@ def do(p_input, map_o, player_o, grammar):
 		print("Did not catch that...")
 		return
 	function = getattr(map_o, functionName)
-	print(misc)
 	function(player_o, *misc)
 	return
 

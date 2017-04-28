@@ -17,8 +17,7 @@
           "take": true,
           "description": "You see a pile of bones in front of you and a door towards the east.",
           "message": "You now have a bone."
-        },
-        "": {}
+        }
       }
     ]
   },
@@ -27,8 +26,7 @@
     "directions": {
       "west": "start",
       "north": "dungeon",
-      "south": "weaponsRoom",
-      "east": "portcullis"
+      "south": "weaponsRoom"
     },
     "objects": [
       {
@@ -46,8 +44,15 @@
 		"canOpen": true,
 		"forOpen": ["key"],
 		"onOpen": {
-			"action": "go south"
-			  }
+			"directionAdd": {
+				"south": "weaponsRoom"
+				},
+			"message" : "The gate opens, you see daylight coming through from behind it."
+			  },
+		"alreadyOpen": {
+			"opened": false,
+			"message": "The gate is already open."
+			}
 	  }
         }
       }
@@ -61,7 +66,17 @@
 		"sword",
 		"spear",
 		"staff"
-	  ]
+	  ],
+	  "onKill": {
+		"directionAdd": {
+			"south": "portcullis"
+		},
+		"message": "The passage way leading to the east opens up."
+		},
+	  "alreadyKilled": {
+		"killed": false,
+		"message": "The dragon is already dead."
+		}
 	}
       }
     ]
@@ -96,7 +111,11 @@
 				       }
                                      },
                         "message": "You open the chest and find a key inside."
-                          }
+                          },
+		"alreadyOpen": {
+			"opened": false,
+			"message": "The chest is already open."
+			}
           }
         }
       }
