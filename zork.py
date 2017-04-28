@@ -2,8 +2,6 @@ import player
 import grammar
 import gameMap
 
-import pdb
-
 import random
 
 what_next = ["What do you do? ", "What next? ", \

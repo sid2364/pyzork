@@ -1,6 +1,11 @@
-from nltk import PorterStemmer
-from nltk import word_tokenize
-from nltk import corpus
+try:
+	from nltk import PorterStemmer
+	from nltk import word_tokenize
+	from nltk import corpus
+except ImportError:
+	print("You do not have NLTK installed on this system. Cannot run the game without it.")
+	quit()
+
 
 move_words = ["travel", "go", "move", "walk", "run"]
 direction_words = ["north", "north-east", "east", "south-east", "south", \
@@ -10,6 +15,7 @@ take_words = ["take", "pick", "lift"]
 drop_words = ["drop", "leave"]
 unlock_words = ["open", "unlock"]
 look_words = ["look", "see", "gaze", "where"]
+inventory_words = ["inventory"]
 object_wildcard = []
 fighter_wildcard = []
 with_ = "with"
@@ -58,7 +64,8 @@ class Grammar:
 			[helpF]]
 
 	def filterInput(self, p_input):
-		return [word for word in word_tokenize(p_input) if word not in stopwords]
+		ps = PorterStemmer()
+		return [ps.stem(word) for word in word_tokenize(p_input) if word not in stopwords]
 	
 	def getGrammarType(self, p_input):
 		p_input = self.filterInput(p_input)
