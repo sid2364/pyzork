@@ -34,6 +34,7 @@ opened = "opened"
 onKill = "onKill"
 alreadyKilled = "alreadyKilled"
 killed = "killed"
+end = "end"
 
 def byteify(data, ignore_dicts = False):
 	if isinstance(data, unicode):
@@ -64,8 +65,14 @@ class Map:
 		print("Type 'help' to display a list of commands you can use.")
 		print("Hope you have fun with the game! Happy adventuring!")
 		print("\nPress enter to begin the adventure...")
-		s = input()
-		print("\n")
+		try:
+			s = input()
+		except KeyboardInterrupt, EOFError:
+			print("\nThat's quite rude.")
+			quit()
+		except:
+			pass
+			quit()
 	
 	def help(player_o, self):
 		print("Zork, help!\nThis is a text based adventure game, where you control your character using commands into the terminal.")
@@ -93,7 +100,7 @@ class Map:
 			pass
 		for item in prerequisites_d:
 			for key in item:
-				if set(key) > set(p_player.have):
+				if not key in p_player.have:
 					try:
 						print(item[key][problem])
 					except KeyError:
@@ -106,6 +113,8 @@ class Map:
 						continue
 		p_player.moveToNewState(newState, p_direction)
 		self.whereAmI(p_player)
+		if newState == end:
+			quit()
 		return
 
 	'''
