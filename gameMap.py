@@ -81,7 +81,9 @@ class Map:
 		print("Look\t\t\t\tTo look around you and describe what you see.")
 		print("Pick up banana\t\t\tTo take an object from the environment you are in.")
 		print("Open door\t\t\tTo open the door, duh.")
-		print("Help\t\t\t\tTo display these messages again")
+		print("Help\t\t\t\tTo display these messages again.")
+		print("Drop pencil\t\t\tTo drop the object whereever you currently are.")
+		print("Inventory\t\t\tTo check what you currently have on you.")
 		print("Hope you have fun with the game! Happy adventuring!")
 
 	'''
