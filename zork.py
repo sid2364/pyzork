@@ -19,12 +19,8 @@ def do(p_input, map_o, player_o, grammar):
 	function(player_o, *misc)
 	return 0
 
-def main():
-	map_o = gameMap.Map()
-	player_o = player.Player()
-	gr = grammar.Grammar()
+def gameLoop(map_o, player_o, grammar_o):
 	map_o.whereAmI(player_o)
-	
 	said = ""
 	bad_said = 0
 	while True:
@@ -40,7 +36,7 @@ def main():
 		if said == "quit" or said == "q":
 			break
 		
-		if do(said, map_o, player_o, gr):
+		if do(said, map_o, player_o, grammar_o):
 			bad_said += 1
 		else:
 			bad_said = 0
@@ -49,7 +45,12 @@ def main():
 			print("To display a list of commands you can use, type 'help'.")
 			bad_said = 0
 
-		
+
+def main():
+	map_o = gameMap.Map()
+	player_o = player.Player()
+	grammar_o = grammar.Grammar()
+	gameLoop(map_o, player_o, grammar_o)
 
 if __name__ == "__main__":
 	main()

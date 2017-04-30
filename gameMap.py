@@ -48,6 +48,9 @@ def byteify(data, ignore_dicts = False):
 		}
 	return data
 
+def clear():
+	os.system('cls' if os.name == 'nt' else 'clear')
+
 try:
 	input = raw_input
 except NameError:
@@ -58,13 +61,13 @@ class Map:
 	def __init__(self):
 		with open(map_file, 'r') as map_f:
 			self.fsm = json.load(map_f, object_hook=byteify)
-		os.system('cls' if os.name == 'nt' else 'clear')
+		clear()
 		print("================================================ Z O R K ================================================")
 		print("Welcome to Zork!")
 		print("This is a text based adventure game, where you control your character using commands into the terminal.")
 		print("Type 'help' to display a list of commands you can use.")
 		print("Hope you have fun with the game! Happy adventuring!")
-		print("\nPress enter to begin the adventure...")
+		print("\nPress enter to continue to main menu...")
 		try:
 			s = input()
 		except KeyboardInterrupt, EOFError:
@@ -73,8 +76,12 @@ class Map:
 		except:
 			pass
 			quit()
+	def mainMenu(self, p_player):
+		clear()
+		
+		
 	
-	def help(player_o, self):
+	def help(self, p_player):
 		print("Zork, help!\nThis is a text based adventure game, where you control your character using commands into the terminal.")
 		print("You may use commands like:-")
 		print("Go north\t\t\tTo move your character in a particular direction.")
