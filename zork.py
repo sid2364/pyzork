@@ -6,6 +6,10 @@ import random
 
 what_next = ["What do you do? ", "What next? ", \
                 "What do you do next? "]
+try:
+	input = raw_input
+except NameError:
+	print("Cannot port input.")
 
 def whatNext():
 	return what_next[random.randint(0, len(what_next)-1)]
@@ -35,7 +39,13 @@ def gameLoop(map_o, player_o, grammar_o):
 
 		if said == "quit" or said == "q":
 			break
-		
+
+		if said == "save":
+			print("Saving game...")
+			gameMap.saveGame(map_o.fsm, player_o)
+			print("Your progress has been saved.\n")
+			continue
+
 		if do(said, map_o, player_o, grammar_o):
 			bad_said += 1
 		else:
@@ -47,8 +57,26 @@ def gameLoop(map_o, player_o, grammar_o):
 
 
 def main():
-	map_o = gameMap.Map()
-	player_o = player.Player()
+	if gameMap.welcome():
+		map_o = gameMap.Map()
+		player_o = player.Player()
+		print("Starting a new game.")
+	else:
+		map_, playerp_, playerd_, playerh_ = gameMap.loadGame()
+		if map_ is not None:
+			print("Loading your saved game.")
+			map_o = gameMap.Map(map_)
+			player_o = player.Player(playerp_, playerh_, playerd_)
+		else:
+			print("Starting a new game.")
+			map_o = gameMap.Map()
+			player_o = player.Player()
+	try:
+		input("Press enter to continue...")
+	except (KeyboardInterrupt, EOFError):
+		print("\nBye.")
+		quit()
+
 	grammar_o = grammar.Grammar()
 	gameLoop(map_o, player_o, grammar_o)
 

@@ -2,8 +2,17 @@ from __future__ import print_function, with_statement
 import json
 import sets
 import os
+import pickle
 
-map_file = "map.json"
+
+try:
+	input = raw_input
+except NameError:
+	print("Cannot port input.")
+
+mapFile = "map.json"
+saveGameMapFile = "savedGameMap.dat"
+saveGamePlayerFile = "savedGamePlayer.dat"
 
 description = "description"
 prerequisites = "prerequisites"
@@ -51,36 +60,52 @@ def byteify(data, ignore_dicts = False):
 def clear():
 	os.system('cls' if os.name == 'nt' else 'clear')
 
-try:
-	input = raw_input
-except NameError:
-	print("Cannot port input.")
+def welcome():
+	clear()
+	print("================================================ Z O R K ================================================")
+	print("Welcome to Zork!")
+	print("This is a text based adventure game, where you control your character by typing commands into the terminal.")
+	print("Hope you have fun with the game! Happy adventuring!")
+	print("\nDo you wish to load a saved game?")
+	try:
+		said = input("[y/n] ")
+	except (KeyboardInterrupt, EOFError):
+		print("\nGood-bye.")
+		quit()
+	return 0 if said.lower() == "y" else 1
 
+def saveGame(mapDict, playerInfo):
+	with open(saveGameMapFile, 'w') as f:
+		pickle.dump(mapDict, f)
+	with open(saveGamePlayerFile, 'w') as f:
+		print(playerInfo.position, playerInfo.direction, playerInfo.have)
+		playerState = (playerInfo.position, playerInfo.direction, playerInfo.have)
+		pickle.dump(playerState, f)
+
+def loadGame():
+	try:
+		fm = open(saveGameMapFile, "rb")
+		mapDict = pickle.load(fm)
+		
+		fp = open(saveGamePlayerFile, "rb")
+		p, d, h = pickle.load(fp)
+	except (OSError, IOError):
+		print("Cannot load game. File not found.")
+		return None, None, None, None
+	return mapDict, p, d, h
 
 class Map:
-	def __init__(self):
-		with open(map_file, 'r') as map_f:
-			self.fsm = json.load(map_f, object_hook=byteify)
-		clear()
-		print("================================================ Z O R K ================================================")
-		print("Welcome to Zork!")
-		print("This is a text based adventure game, where you control your character using commands into the terminal.")
-		print("Type 'help' to display a list of commands you can use.")
-		print("Hope you have fun with the game! Happy adventuring!")
-		print("\nPress enter to continue to main menu...")
-		try:
-			s = input()
-		except KeyboardInterrupt, EOFError:
-			print("\nThat's quite rude.")
-			quit()
-		except:
-			pass
-			quit()
+	def __init__(self, mapDict=None):
+		if mapDict is not None:
+			self.fsm = mapDict
+		else:
+			with open(mapFile, 'r') as map_f:
+				self.fsm = json.load(map_f, object_hook=byteify)
+		
+
 	def mainMenu(self, p_player):
-		clear()
-		
-		
-	
+		clear()		
+			
 	def help(self, p_player):
 		print("Zork, help!\nThis is a text based adventure game, where you control your character using commands into the terminal.")
 		print("You may use commands like:-")
