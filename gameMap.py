@@ -198,13 +198,13 @@ class Map:
 			self.fsm[p_player.position][objects] = []
 			self.dropObject(p_player, p_object)
 			return
-		obj_d = {
-				p_object: {
-					"take": True,
-					"message": "You have picked up the " + p_object + ".",
-					"description": "You see the " + p_object + " you dropped on the ground."
-				  }
-			}
+				obj_d = {
+					p_object: {
+						"take": True,
+						"message": "You have picked up the " + p_object + ".",
+						"description": "You see the " + p_object + " you dropped on the ground."
+					  }
+					}
 		obj_l.append(obj_d)
 		p_player.have.remove(p_object)
 		print("Dropped.")
@@ -214,7 +214,7 @@ class Map:
 	'''
 	def killFighter(self, p_player, p_fighter, p_weapon=None):
 		if p_weapon is None:
-			print("With what?")
+			print("You do not stand a chance if you fight with your bare hands.")
 			return
 		foundFighter = None
 		if p_weapon not in p_player.have:
