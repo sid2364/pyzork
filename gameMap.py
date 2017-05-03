@@ -72,7 +72,7 @@ def welcome():
 		said = input("[y/n] ")
 	except (KeyboardInterrupt, EOFError):
 		print("\nGood-bye.")
-		quit()
+		sys.exit()
 	return 0 if said.lower() == "y" else 1
 
 def stem(word):
@@ -154,7 +154,7 @@ class Map:
 		self.whereAmI(p_player)
 		if newState == end:
 			print("\nBravo! You beat the game!")
-			quit()
+			sys.exit()
 		return
 
 	'''

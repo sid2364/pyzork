@@ -1,6 +1,7 @@
 import player
 import grammar
 import gameMap
+import sys
 
 import random
 
@@ -39,7 +40,7 @@ def gameLoop(map_o, player_o, grammar_o):
 			said = raw_input(whatNext()).lower()
 		except KeyboardInterrupt, EOFError:
 			print("\n\nBuh-bye.")
-			quit()
+			sys.exit()
 		except:
 			print("\nThat did not make sense to me.\nIf you wish to exit, type 'quit' or 'q' or press ctrl-C.")
 			continue
@@ -82,7 +83,7 @@ def main():
 		input("Press enter to continue...")
 	except (KeyboardInterrupt, EOFError):
 		print("\nBye.")
-		quit()
+		sys.exit()
 	print('')
 	grammar_o = grammar.Grammar()
 	gameLoop(map_o, player_o, grammar_o)
