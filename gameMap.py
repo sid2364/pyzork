@@ -153,6 +153,7 @@ class Map:
 		p_player.moveToNewState(newState, p_direction)
 		self.whereAmI(p_player)
 		if newState == end:
+			print("\nBravo! You beat the game!")
 			quit()
 		return
 
@@ -224,7 +225,14 @@ class Map:
 				print("Come back another day when you are deemed a worthy opponent.")
 				return
 			else:
-				weapon = input("What weapon do you want to use for this battle? ")
+				try:
+					weapon = input("\nWhat weapon do you want to use for this battle? ")
+				except (EOFError, KeyboardInterrupt):
+					print("You can type 'quit' if you wish to get out of here.")
+					return
+				if not weapon:
+					print("Alright then...")
+					return
 				p_weapon = weapon
 		foundFighter = None
 		if p_weapon not in p_player.have:

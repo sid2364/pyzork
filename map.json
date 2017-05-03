@@ -1,6 +1,6 @@
 {
   "start": {
-	"description": "You find yourself in a dark empty crypt. There is an eerie feel to this place. There is a door to the east. It's unlocked.",
+	"description": "You find yourself in a dark empty crypt. There is an eerie feel to this place, and you do not feel uncomfortable at all. You need to get home. There is a door to the east; it's unlocked.",
 	"directions": {
 	  "east": "dragonCell"
 	},
@@ -170,8 +170,7 @@
   "gazebo": {
 	"description": "You are at a gazebo. You see snow-festooned mountain peaks that extend and meet the horizon in the north. Below you there is nothing but the deepest valley you have ever seen.",
 	"directions": {
-	  "south": "garden",
-	  "west": "portal"
+	  "south": "garden"
 	},
 	"objects": [
 	  {
