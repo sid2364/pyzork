@@ -5,11 +5,18 @@ import gameMap
 import random
 
 what_next = ["What do you do? ", "What next? ", \
-                "What do you do next? "]
+                "What do you do next? ", "What do you do now? ", "What is your next move? "]
+
+did_not_catch_that = ["Did not catch that.", "What was that?", "I don't understand that.", "Could you say that again?", "Repeat that?", "Sorry?",\
+		"Did not understand that?", "Say that again?", "My vocabulary is limited. Could you say that again?"]
+
 try:
 	input = raw_input
 except NameError:
 	print("Cannot port input.")
+
+def sayDidNotCatchThat():
+	print(did_not_catch_that[random.randint(0, len(did_not_catch_that)-1)])
 
 def whatNext():
 	return what_next[random.randint(0, len(what_next)-1)]
@@ -17,7 +24,7 @@ def whatNext():
 def do(p_input, map_o, player_o, grammar):
 	functionName, misc = grammar.getGrammarType(p_input)
 	if functionName is None:
-		print("Did not catch that...")
+		sayDidNotCatchThat()
 		return 1
 	function = getattr(map_o, functionName)
 	function(player_o, *misc)
@@ -37,7 +44,7 @@ def gameLoop(map_o, player_o, grammar_o):
 			print("\nThat did not make sense to me.\nIf you wish to exit, type 'quit' or 'q' or press ctrl-C.")
 			continue
 
-		if said == "quit" or said == "q":
+		if said == "quit" or said == "q" or said=='exit':
 			break
 
 		if said == "save":
@@ -51,7 +58,7 @@ def gameLoop(map_o, player_o, grammar_o):
 		else:
 			bad_said = 0
 		print("")
-		if bad_said >= 3:
+		if bad_said >= random.randint(3,5):
 			print("To display a list of commands you can use, type 'help'.")
 			bad_said = 0
 
@@ -64,9 +71,9 @@ def main():
 	else:
 		map_, playerp_, playerd_, playerh_ = gameMap.loadGame()
 		if map_ is not None:
-			print("Loading your saved game.")
 			map_o = gameMap.Map(map_)
 			player_o = player.Player(playerp_, playerh_, playerd_)
+			print("Saved game loaded!\n")
 		else:
 			print("Starting a new game.")
 			map_o = gameMap.Map()
@@ -76,7 +83,7 @@ def main():
 	except (KeyboardInterrupt, EOFError):
 		print("\nBye.")
 		quit()
-
+	print('')
 	grammar_o = grammar.Grammar()
 	gameLoop(map_o, player_o, grammar_o)
 

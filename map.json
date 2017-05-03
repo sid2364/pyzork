@@ -1,6 +1,6 @@
 {
   "start": {
-	"description": "You find yourself in a dark empty crypt. There is an eerie feel to this place.",
+	"description": "You find yourself in a dark empty crypt. There is an eerie feel to this place. There is a door to the east. It's unlocked.",
 	"directions": {
 	  "east": "dragonCell"
 	},
@@ -15,7 +15,7 @@
 	  {
 		"bone": {
 		  "take": true,
-		  "description": "You see a pile of bones in front of you and a door towards the east.",
+		  "description": "You see a pile of bones in front of you.",
 		  "message": "You now have a bone."
 		}
 	  }

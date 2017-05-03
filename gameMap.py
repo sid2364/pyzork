@@ -4,6 +4,7 @@ import sets
 import os
 import pickle
 
+from nltk import PorterStemmer
 
 try:
 	input = raw_input
@@ -73,6 +74,10 @@ def welcome():
 		print("\nGood-bye.")
 		quit()
 	return 0 if said.lower() == "y" else 1
+
+def stem(word):
+	ps = PorterStemmer()
+	return ps.stem(word)
 
 def saveGame(mapDict, playerInfo):
 	with open(saveGameMapFile, 'w') as f:
@@ -162,7 +167,7 @@ class Map:
 				return
 			for obj in obj_l:
 				for key in obj:
-					if p_object == key:
+					if p_object == stem(key):
 						print(obj[key][message])
 						if obj[key][take]:
 							p_player.takeItem(p_object)
@@ -198,13 +203,13 @@ class Map:
 			self.fsm[p_player.position][objects] = []
 			self.dropObject(p_player, p_object)
 			return
-				obj_d = {
-					p_object: {
-						"take": True,
-						"message": "You have picked up the " + p_object + ".",
-						"description": "You see the " + p_object + " you dropped on the ground."
-					  }
-					}
+		obj_d = {
+			p_object: {
+				"take": True,
+				"message": "You have picked up the " + p_object + ".",
+				"description": "You see the " + p_object + " you dropped on the ground."
+			}
+		}
 		obj_l.append(obj_d)
 		p_player.have.remove(p_object)
 		print("Dropped.")
@@ -215,7 +220,12 @@ class Map:
 	def killFighter(self, p_player, p_fighter, p_weapon=None):
 		if p_weapon is None:
 			print("You do not stand a chance if you fight with your bare hands.")
-			return
+			if not p_player.have:
+				print("Come back another day when you are deemed a worthy opponent.")
+				return
+			else:
+				weapon = input("What weapon do you want to use for this battle? ")
+				p_weapon = weapon
 		foundFighter = None
 		if p_weapon not in p_player.have:
 			print("You do not possess this " + p_weapon + " of which you speak.")
@@ -224,7 +234,7 @@ class Map:
 			fighters_l = self.fsm[p_player.position][fighters]
 			for fighter in fighters_l:
 				for key in fighter:
-					if p_fighter == str(key):
+					if p_fighter == stem(key):
 						if fighter[key][alreadyKilled][killed]:
 							print(fighter[key][alreadyKilled][message])
 							return
