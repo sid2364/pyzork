@@ -174,7 +174,16 @@ class Map:
 			print("You see no such thing here.")
 		except KeyError:
 			print("You cannot do that.")
-	
+
+	def inventory(self, p_player):
+		if p_player.have:
+			say = "You have with you: "
+			say += ", ".join(p_player.have)
+			say += "."
+		else:
+			say = "You do not hold anything at the moment."
+		print(say)
+
 	'''
 	Drops the object in the current position
 	'''

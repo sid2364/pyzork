@@ -15,9 +15,7 @@ take_words = ["take", "pick", "lift"]
 drop_words = ["drop", "leave"]
 unlock_words = ["open", "unlock"]
 look_words = ["look", "see", "gaze", "where"]
-inventory_words = ["inventory"]
-object_wildcard = []
-fighter_wildcard = []
+inventory_words = ["inventori"]
 with_ = "with"
 from_ = "from"
 help_ = "help"
@@ -33,6 +31,7 @@ killFighter = "killFighter"
 whereAmI = "whereAmI"
 openObject = "openObject"
 helpF = "help"
+inventory = "inventory"
 
 stopwords = list(set(corpus.stopwords.words("english")) - set(["with", "from", "where"]))
 
@@ -46,7 +45,8 @@ grammarToFunctionMap = {0: takeObject, \
 		7: dropObject,
 		8: openObject,\
 		9: whereAmI,\
-		10: helpF}
+		10: helpF,\
+		11: inventory}
 
 
 class Grammar:
@@ -61,7 +61,8 @@ class Grammar:
 	                [drop_words, wildcard],\
 	                [unlock_words, wildcard],\
 	                [look_words],\
-			[helpF]]
+			[helpF],\
+			[inventory_words]]
 
 	def filterInput(self, p_input):
 		ps = PorterStemmer()
@@ -103,8 +104,3 @@ class Grammar:
 					break
 		if selected_i == -1:
 			return None, []
-
-	
-#print(getGrammarType(filterInput("kill the fighter_ with the object_")))
-#print(getGrammarType(filterInput("go to north")))
-
