@@ -90,9 +90,11 @@ def loadGame():
 	try:
 		fm = open(saveGameMapFile, "rb")
 		mapDict = pickle.load(fm)
-		
+		fm.close()
+
 		fp = open(saveGamePlayerFile, "rb")
 		p, d, h = pickle.load(fp)
+		fp.close()
 	except (OSError, IOError):
 		print("Cannot load game. File not found.")
 		return None, None, None, None
@@ -103,9 +105,13 @@ class Map:
 		if mapDict is not None:
 			self.fsm = mapDict
 		else:
-			with open(mapFile, 'r') as map_f:
+			try:
+				map_f = open(mapFile, 'r')
 				self.fsm = json.load(map_f, object_hook=byteify)
-		
+			except (IOError, OSError):
+				print("Cannot load game. Map file not found.")
+				sys.exit(0)
+	
 
 	def mainMenu(self, p_player):
 		clear()		
@@ -153,6 +159,10 @@ class Map:
 		self.whereAmI(p_player)
 		if newState == end:
 			print("\nBravo! You beat the game!")
+			try:
+				input("\nPress enter to exit...")
+			except (EOFError, KeyboardInterrupt):
+				pass
 			sys.exit()
 		return
 

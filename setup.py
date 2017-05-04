@@ -3,10 +3,6 @@ from cx_Freeze import setup, Executable
 
 build_exe_options = {"packages": ["json", "sets", "os", "pickle", "random", "sys", "nltk"]}
 
-base = None
-if sys.platform == "win32":
-    base = "Win32GUI"
-
 setup(  name = "zork",
         version = "0.1",
         keywords = "zork",
@@ -15,5 +11,5 @@ setup(  name = "zork",
         maintainer_email = "sahaysid@gmail.com",
         description = "Zork, the classic text based game, with a customisable map",
         options = {"build_exe": build_exe_options},
-        executables = [Executable("zork.py", base=base)])
+        executables = [Executable("zork.py")])
 
