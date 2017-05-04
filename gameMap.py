@@ -3,7 +3,7 @@ import json
 import sets
 import os
 import pickle
-
+import sys
 from nltk import PorterStemmer
 
 try:
@@ -83,7 +83,6 @@ def saveGame(mapDict, playerInfo):
 	with open(saveGameMapFile, 'w') as f:
 		pickle.dump(mapDict, f)
 	with open(saveGamePlayerFile, 'w') as f:
-		print(playerInfo.position, playerInfo.direction, playerInfo.have)
 		playerState = (playerInfo.position, playerInfo.direction, playerInfo.have)
 		pickle.dump(playerState, f)
 
