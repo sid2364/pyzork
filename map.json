@@ -92,7 +92,7 @@
 		},
 		"alreadyKilled": {
 			"killed": false,
-			"message": "The dragon is already dead."
+			"message": "The dragon is already dead. Why must you be such a brute?"
 		}
 	  }
 	}
@@ -194,7 +194,7 @@
 		"torch": {
 		  "take": true,
 		  "message": "You pick up the torch and carefully hold on it.",
-		  "description": "A flaming torch lies on the edge of the gazebo. The fire shines bright red in the sunlight."
+		  "description": "A flaming torch lies on the edge of the gazebo. The fire shines a peculiar bright red in the sunlight."
 		}
 	  }
 	]
@@ -213,6 +213,12 @@
 	  }
 	],
 	"objects": [
+	  {
+		"window": {
+		  "take": false,
+		  "message": "Be serious."
+		}
+	  },
 	  {
 		"sword": {
 		  "take": true,
