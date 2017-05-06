@@ -18,7 +18,24 @@
 		  "description": "You see a pile of bones in front of you.",
 		  "message": "You now have a bone."
 		}
-	  }
+	  },
+	  {
+                "door": {
+                  "take": false,
+                  "message": "You can't take the door.",
+		  "openObject": {
+                        "canOpen": true,
+                        "forOpen": [],
+                        "onOpen": {
+	                        "message" : "The door opens revealing a path towards the east."
+                     	},
+	                "alreadyOpen": {
+        	                "opened": false,
+                	        "message": "The door is already open."
+                  }
+		 }
+          	}
+          }
 	]
   },
   "dragonCell": {
@@ -143,10 +160,10 @@
 					},
 					"message": "You open the chest and find a key inside."
 				},
-		  "alreadyOpen": {
-				"opened": false,
-				"message": "The chest is already open."
-			}
+	   		        "alreadyOpen": {
+					"opened": false,
+					"message": "The chest is already open."
+				}
 		  }
 		}
 	  }

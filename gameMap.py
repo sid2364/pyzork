@@ -325,9 +325,13 @@ class Map:
                                 for key in obj:
                                         if p_object == str(key):
                                                 if obj[key][openObject][canOpen]:
+							print(set(obj[key][openObject][forOpen]).\
+                                                                        issubset(set(p_player.have)))
+							print(obj[key][openObject][forOpen] == [])
 							if set(obj[key][openObject][forOpen]).\
 									issubset(set(p_player.have)) or \
 									obj[key][openObject][forOpen] == []:
+								print(obj[key][openObject][alreadyOpen][opened])
 								if obj[key][openObject][alreadyOpen][opened]:
 									say = obj[key][openObject][alreadyOpen][message]
 									print(say)
@@ -348,6 +352,10 @@ class Map:
 									obj[key][openObject][alreadyOpen][opened] = True
 								except KeyError:
 									pass
+								try:
+									print(obj[key][openObject][onOpen][message])
+                                                                except KeyError:
+                                                                        pass
 								return
 							else:
 								say = "You do not have the required object to open this."
