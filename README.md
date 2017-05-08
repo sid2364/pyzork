@@ -50,10 +50,11 @@ You can make your own map using these tags in this format:-
 	  }, 
 	  {
 		"anotherObjectThatIsFoundHere": {
-		  "take": true,
-		  "message": "Message displayed when player takes the object."
+		  "take": false,
+		  "message": "Message displayed when player tries to take the object.",
+		  "description": "Description of object that player sees when present at this place."
 	  },
-	],_
+	],
 	"fighters": [ 
 	{ 
 	  "characterThatYouCanFight": { 
@@ -80,7 +81,3 @@ You can make your own map using these tags in this format:-
 ```
 
 To specify where the game starts and ends, use "start" and "end" as nameOfPlace. Check __map.json__ for reference.
-
-Have fun!
-
-
