@@ -54,10 +54,12 @@ def gameLoop(map_o, player_o, grammar_o):
 			print("Your progress has been saved.\n")
 			continue
 
-		if do(said, map_o, player_o, grammar_o):
-			bad_said += 1
-		else:
-			bad_said = 0
+		commands = said.split("and")
+		for command in commands:
+			if do(command, map_o, player_o, grammar_o):
+				bad_said += 1
+			else:
+				bad_said = 0
 		print("")
 		if bad_said >= random.randint(3,5):
 			print("To display a list of commands you can use, type 'help'.")

@@ -332,16 +332,20 @@ class Map:
 									say = obj[key][openObject][alreadyOpen][message]
 									print(say)
 									return
+								saidAlready = False
 								try:
 									newDirection = obj[key][openObject][onOpen][directionAdd]
 									self.fsm[p_player.position][directions].update(newDirection)
 									print(obj[key][openObject][onOpen][message])
+									saidAlready = True
 								except KeyError:
 									pass
 								# Seperate try-except because directionAdd/objectAdd may not exist together
 								try:
 									self.fsm[p_player.position][objects].append(obj[key][openObject][onOpen][objectAdd])
-	                                                        	print(obj[key][openObject][onOpen][message])
+	                                                        	if not saidAlready:
+										print(obj[key][openObject][onOpen][message])
+										saidAlready = True
 								except KeyError:
 									pass
 								try:
@@ -349,7 +353,8 @@ class Map:
 								except KeyError:
 									pass
 								try:
-									print(obj[key][openObject][onOpen][message])
+									if not saidAlready:
+										print(obj[key][openObject][onOpen][message])
                                                                 except KeyError:
                                                                         pass
 								return
