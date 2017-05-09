@@ -1,7 +1,7 @@
 import sys
 from cx_Freeze import setup, Executable
 
-build_exe_options = {"packages": ["json", "sets", "os", "pickle", "random", "sys", "nltk"]}
+build_exe_options = {"packages": ["json", "sets", "os", "pickle", "random", "sys", "nltk"], "include_files": ["nltk_data/", "map.json"]}
 
 setup(  name = "zork",
         version = "0.1",
