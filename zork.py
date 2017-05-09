@@ -60,7 +60,7 @@ def gameLoop(map_o, player_o, grammar_o):
 				bad_said += 1
 			else:
 				bad_said = 0
-		print("")
+			print("")
 		if bad_said >= random.randint(3,5):
 			print("To display a list of commands you can use, type 'help'.")
 			bad_said = 0

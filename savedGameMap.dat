@@ -160,7 +160,7 @@ p88
 (dp89
 S'message'
 p90
-S'The dragon is already dead.'
+S'The dragon is already dead. Why must you be such a brute?'
 p91
 sS'killed'
 p92
@@ -289,237 +289,285 @@ sS'description'
 p159
 S'You see a pile of bones in front of you.'
 p160
-ssasS'description'
-p161
-S"You find yourself in a dark empty crypt. There is an eerie feel to this place, and you do not feel uncomfortable at all. You need to get home. There is a door to the east; it's unlocked."
+ssa(dp161
+S'door'
 p162
-ssS'portcullis'
-p163
-(dp164
-S'directions'
-p165
-(dp166
-S'west'
-p167
-S'dragonCell'
-p168
-sS'south'
-p169
-S'river'
-p170
-ssS'fighters'
-p171
-(lp172
-(dp173
-S'troll'
-p174
-(dp175
-S'killable'
-p176
-I01
-sS'onKill'
-p177
-(dp178
+(dp163
 S'message'
+p164
+S"You can't take the door."
+p165
+sS'take'
+p166
+I00
+sS'openObject'
+p167
+(dp168
+S'onOpen'
+p169
+(dp170
+S'message'
+p171
+S'The door opens revealing a path towards the east.'
+p172
+ssS'canOpen'
+p173
+I01
+sS'forOpen'
+p174
+(lp175
+sS'alreadyOpen'
+p176
+(dp177
+S'message'
+p178
+S'The door is already open.'
 p179
-S'It seems you can now walk about in the garden freely.'
+sS'opened'
 p180
-sS'directionAdd'
+I00
+ssssasS'description'
 p181
-(dp182
-S'north'
+S"You find yourself in a dark empty crypt. There is an eerie feel to this place, and you do not feel uncomfortable at all. You need to get home. There is a door to the east; it's unlocked."
+p182
+ssS'portcullis'
 p183
-S'garden'
-p184
-sssS'alreadyKilled'
+(dp184
+S'directions'
 p185
 (dp186
-S'message'
+S'west'
 p187
-S'The troll lay dead in front of you. How much more do you want to kill it?'
+S'dragonCell'
 p188
-sS'killed'
+sS'south'
 p189
+S'river'
+p190
+ssS'fighters'
+p191
+(lp192
+(dp193
+S'troll'
+p194
+(dp195
+S'killable'
+p196
+I01
+sS'onKill'
+p197
+(dp198
+S'message'
+p199
+S'It seems you can now walk about in the garden freely.'
+p200
+sS'directionAdd'
+p201
+(dp202
+S'north'
+p203
+S'garden'
+p204
+sssS'alreadyKilled'
+p205
+(dp206
+S'message'
+p207
+S'The troll lay dead in front of you. How much more do you want to kill it?'
+p208
+sS'killed'
+p209
 I00
 ssS'altDescription'
-p190
+p210
 S'The troll lays dead on the grass. His tongue sticks out of his mouth making for an extremely unpleasant sight. You see a huge open space with a garden to the north.'
-p191
+p211
 sS'mustUse'
-p192
-(lp193
+p212
+(lp213
 S'spear'
-p194
+p214
 aS'staff'
-p195
+p215
 assasS'objects'
-p196
-(lp197
-(dp198
+p216
+(lp217
+(dp218
 S'troll'
-p199
-(dp200
+p219
+(dp220
 S'message'
-p201
+p221
 S'How were you even planning on doing that? And more importantly, why?'
-p202
+p222
 sS'take'
-p203
+p223
 I00
 sS'description'
-p204
+p224
 S"A troll is wandering in the garden outside. It swings it's massive club in the air every now and then."
-p205
+p225
 ssasS'description'
-p206
-S'A portcullis is drawn up. You are standing just outside a sprawling castle with dark walls. To your south there is a fast flowing stream.'
-p207
-ssS'weaponsRoom'
-p208
-(dp209
-S'directions'
-p210
-(dp211
-S'north'
-p212
-S'dragonCell'
-p213
-ssS'prerequisites'
-p214
-(lp215
-(dp216
-S'key'
-p217
-(dp218
-S'problem'
-p219
-S'The gate is locked.'
-p220
-sS'solution'
-p221
-S'You unlock the gate and enter.'
-p222
-ssasS'objects'
-p223
-(lp224
-(dp225
-S'sword'
 p226
-(dp227
-S'message'
+S'A portcullis is drawn up. You are standing just outside a sprawling castle with dark walls. To your south there is a fast flowing stream.'
+p227
+ssS'weaponsRoom'
 p228
-S'Good choice. You now have a sword.'
-p229
-sS'take'
+(dp229
+S'directions'
 p230
-I01
-ssa(dp231
-S'spear'
+(dp231
+S'north'
 p232
-(dp233
-S'message'
-p234
-S'Great choice! You now have a spear.'
-p235
-sS'take'
-p236
-I01
-ssa(dp237
-S'knife'
-p238
-(dp239
-S'message'
-p240
-S'You now have a knife.'
-p241
-sS'take'
-p242
-I01
-ssa(dp243
-S'hammer'
-p244
-(dp245
-S'message'
-p246
-S'You now have a hammer.'
-p247
-sS'take'
-p248
-I01
-ssa(dp249
-S'staff'
-p250
-(dp251
-S'message'
-p252
-S'Excellent choice. You now have a staff.'
-p253
-sS'take'
-p254
-I01
-ssasS'description'
-p255
-S'You enter a room full of weapons. You see swords, knives, spears, staffs, and hammers displayed all around you. Large windows illuminate the room with the daylight outside.'
-p256
-ssS'river'
-p257
-(dp258
-S'directions'
-p259
-(dp260
-S'east'
-p261
-S'end'
-p262
+S'dragonCell'
+p233
 ssS'prerequisites'
-p263
-(lp264
-(dp265
-S'torch'
-p266
-(dp267
+p234
+(lp235
+(dp236
+S'key'
+p237
+(dp238
 S'problem'
-p268
-S"The stream says to you, 'It eats many things; it fears me but not the wind. But give me enough and I will subside momentarily.' You cannot get past the stream."
-p269
+p239
+S'The gate is locked.'
+p240
 sS'solution'
+p241
+S'You unlock the gate and enter.'
+p242
+ssasS'objects'
+p243
+(lp244
+(dp245
+S'window'
+p246
+(dp247
+S'message'
+p248
+S'Be serious.'
+p249
+sS'take'
+p250
+I00
+ssa(dp251
+S'sword'
+p252
+(dp253
+S'message'
+p254
+S'Good choice. You now have a sword.'
+p255
+sS'take'
+p256
+I01
+ssa(dp257
+S'spear'
+p258
+(dp259
+S'message'
+p260
+S'Great choice! You now have a spear.'
+p261
+sS'take'
+p262
+I01
+ssa(dp263
+S'knife'
+p264
+(dp265
+S'message'
+p266
+S'You now have a knife.'
+p267
+sS'take'
+p268
+I01
+ssa(dp269
+S'hammer'
 p270
-S'The water in the river bends and parts. You see how deep the river bed is without the water there.'
-p271
-ssasS'description'
+(dp271
+S'message'
 p272
-S"You are at the river. It's flowing north. On the other side of the river in the east you see a deep, dark forest."
+S'You now have a hammer.'
 p273
-ssS'gazebo'
+sS'take'
 p274
-(dp275
-S'directions'
+I01
+ssa(dp275
+S'staff'
 p276
 (dp277
-S'south'
+S'message'
 p278
-S'garden'
+S'Excellent choice. You now have a staff.'
 p279
-ssS'objects'
+sS'take'
 p280
-(lp281
-(dp282
-S'torch'
+I01
+ssasS'description'
+p281
+S'You enter a room full of weapons. You see swords, knives, spears, staffs, and hammers displayed all around you. Large windows illuminate the room with the daylight outside.'
+p282
+ssS'river'
 p283
 (dp284
-S'message'
+S'directions'
 p285
-S'You pick up the torch and carefully hold on it.'
-p286
-sS'take'
+(dp286
+S'east'
 p287
+S'end'
+p288
+ssS'prerequisites'
+p289
+(lp290
+(dp291
+S'torch'
+p292
+(dp293
+S'problem'
+p294
+S"The stream says to you, 'It eats many things; it fears me but not the wind. But give me enough and I will subside momentarily.' You cannot get past the stream."
+p295
+sS'solution'
+p296
+S'The water in the river bends and parts. You see how deep the river bed is without the water there.'
+p297
+ssasS'description'
+p298
+S"You are at the river. It's flowing north. On the other side of the river in the east you see a deep, dark forest."
+p299
+ssS'gazebo'
+p300
+(dp301
+S'directions'
+p302
+(dp303
+S'south'
+p304
+S'garden'
+p305
+ssS'objects'
+p306
+(lp307
+(dp308
+S'torch'
+p309
+(dp310
+S'message'
+p311
+S'You pick up the torch and carefully hold on it.'
+p312
+sS'take'
+p313
 I01
 sS'description'
-p288
-S'A flaming torch lies on the edge of the gazebo. The fire shines bright red in the sunlight.'
-p289
+p314
+S'A flaming torch lies on the edge of the gazebo. The fire shines a peculiar bright red in the sunlight.'
+p315
 ssasS'description'
-p290
+p316
 S'You are at a gazebo. You see snow-festooned mountain peaks that extend and meet the horizon in the north. Below you there is nothing but the deepest valley you have ever seen.'
-p291
+p317
 ss.

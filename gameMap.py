@@ -4,7 +4,11 @@ import sets
 import os
 import pickle
 import sys
-from nltk import PorterStemmer
+try:
+	from nltk import PorterStemmer
+except ImportError:
+	print("You need NLTK installed to run this game.")
+	sys.exit(0)
 
 try:
 	input = raw_input
@@ -15,17 +19,13 @@ mapFile = "map.json"
 saveGameMapFile = "savedGameMap.dat"
 saveGamePlayerFile = "savedGamePlayer.dat"
 
+# JSON tags for the map
 description = "description"
 prerequisites = "prerequisites"
 objects = "objects"
 directions = "directions"
-north = "north"
-east = "east"
-south = "south"
-west = "west"
 take = "take"
 message = "message"
-noPrerequisites = "noPrerequisites"
 problem = "problem"
 solution = "solution"
 fighters = "fighters"
@@ -67,6 +67,8 @@ def welcome():
 	print("Welcome to Zork!")
 	print("This is a text based adventure game, where you control your character by typing commands into the terminal.")
 	print("Hope you have fun with the game! Happy adventuring!")
+	if not os.path.exists(saveGameMapFile) and not os.path.exists(saveGamePlayerFile):
+		return 1
 	print("\nDo you wish to load a saved game?")
 	try:
 		said = input("[y/n] ")
