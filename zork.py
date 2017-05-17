@@ -45,6 +45,7 @@ def getCommands(text):
 		if t in ["and", ",", ".", "then"]:
 			yield command
 			command = ""
+			continue
 		command += t
 		command += " "
 	else:
@@ -76,14 +77,10 @@ def gameLoop(map_o, player_o, grammar_o):
 
 		commands = getCommands(said)
 		for command in commands:
-			print(command)
 			if do(command, map_o, player_o, grammar_o):
 				bad_said += 1
 			else:
 				bad_said = 0
-			print("")
-		else:
-			bad_said += 1
 			print("")
 
 		if bad_said >= random.randint(3,5):
