@@ -317,7 +317,7 @@ class Map:
 					except:
 						pass
 		except KeyError: # map has no description (but, why?)
-			pass	
+			pass
 	'''
 	Tries to open object in the current position
 	'''
@@ -398,6 +398,8 @@ class Map:
 			return []
 		
 		return fighters_ret
+	def sayOkay(self, p_player):
+		print("Okay then...")
 
 if __name__ == "__main__":
 	map_o = Map()

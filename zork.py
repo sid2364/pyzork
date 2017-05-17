@@ -3,9 +3,14 @@
 import player
 import grammar
 import gameMap
-import sys
 
+import sys
 import random
+try:
+	from nltk import word_tokenize
+except ImportError:
+	print("You must have NLTK data to run this game.")
+	sys.exit()
 
 what_next = ["What do you do? ", "What next? ", \
                 "What do you do next? ", "What do you do now? ", "What is your next move? "]
@@ -33,13 +38,26 @@ def do(p_input, map_o, player_o, grammar):
 	function(player_o, *misc)
 	return 0
 
+def getCommands(text):
+	tokens = word_tokenize(text)
+	command = ""
+	for t in tokens:
+		if t in ["and", ",", ".", "then"]:
+			yield command
+			command = ""
+		command += t
+		command += " "
+	else:
+		yield command
+
 def gameLoop(map_o, player_o, grammar_o):
 	map_o.whereAmI(player_o)
 	said = ""
 	bad_said = 0
+	print("")
 	while True:
 		try:
-			said = raw_input(whatNext()).lower()
+			said = input(whatNext()).lower()
 		except KeyboardInterrupt, EOFError:
 			print("\n\nBuh-bye.")
 			sys.exit()
@@ -56,13 +74,18 @@ def gameLoop(map_o, player_o, grammar_o):
 			print("Your progress has been saved.\n")
 			continue
 
-		commands = said.split("and")
+		commands = getCommands(said)
 		for command in commands:
+			print(command)
 			if do(command, map_o, player_o, grammar_o):
 				bad_said += 1
 			else:
 				bad_said = 0
 			print("")
+		else:
+			bad_said += 1
+			print("")
+
 		if bad_said >= random.randint(3,5):
 			print("To display a list of commands you can use, type 'help'.")
 			bad_said = 0

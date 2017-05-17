@@ -6,7 +6,7 @@ try:
 	from nltk import corpus
 except ImportError:
 	print("You do not have NLTK installed on this system. Cannot run the game without it.")
-	quit()
+	sys.exit()
 
 
 move_words = ["travel", "go", "move", "walk", "run"]
@@ -18,6 +18,7 @@ drop_words = ["drop", "leave"]
 unlock_words = ["open", "unlock"]
 look_words = ["look", "see", "gaze", "where"]
 inventory_words = ["inventori"]
+sayOkay_words = ["noth", "stand"]
 with_ = "with"
 from_ = "from"
 help_ = "help"
@@ -34,6 +35,7 @@ whereAmI = "whereAmI"
 openObject = "openObject"
 helpF = "help"
 inventory = "inventory"
+sayOkay = "sayOkay"
 
 stopwords = list(set(corpus.stopwords.words("english")) - set(["with", "from", "where"]))
 
@@ -48,7 +50,8 @@ grammarToFunctionMap = {0: takeObject, \
 		8: openObject,\
 		9: whereAmI,\
 		10: helpF,\
-		11: inventory}
+		11: inventory,\
+		12: sayOkay}
 
 
 class Grammar:
@@ -64,7 +67,8 @@ class Grammar:
 	                [unlock_words, wildcard],\
 	                [look_words],\
 			[helpF],\
-			[inventory_words]]
+			[inventory_words],\
+			[sayOkay_words]]
 
 	def filterInput(self, p_input):
 		ps = PorterStemmer()
