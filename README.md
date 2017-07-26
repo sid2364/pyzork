@@ -1,6 +1,6 @@
 # pyzork
 Yet another version of the classic text game, Zork.
-You can design the entire map with the __map.json__ file. This includes putting down the actual floor plan, what objects and characters you come across, which of these you can interact or fight with, and some others.
+You can design the entire map with the [map.json](map.json) file. This includes putting down the actual floor plan, what objects and characters you come across, which of these you can interact or fight with, and some others.
 
 You can make your own map using these tags in this format:-
 
@@ -80,4 +80,4 @@ You can make your own map using these tags in this format:-
 }
 ```
 
-To specify where the game starts and ends, use "start" and "end" as nameOfPlace. Check __map.json__ for reference.
+To specify where the game starts and ends, use "start" and "end" as nameOfPlace. Check [map.json](map.json) for reference.
