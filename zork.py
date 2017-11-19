@@ -2,10 +2,9 @@
 
 import sys
 import random
-import os
 
 try:
-	import nltk
+	import nltk, os
 	nltk.data.path.append(os.path.join(os.getcwd(), 'nltk_data'))
 	from nltk import word_tokenize
 except ImportError:

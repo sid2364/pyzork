@@ -1,8 +1,8 @@
 # -*- coding: utf-8 -*-
 
-import os
-
 try:
+	import nltk, os
+	nltk.data.path.append(os.path.join(os.getcwd(), 'nltk_data'))
 	from nltk import PorterStemmer
 	from nltk import word_tokenize
 	from nltk import corpus

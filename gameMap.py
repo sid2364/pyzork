@@ -7,6 +7,8 @@ import os
 import pickle
 import sys
 try:
+	import nltk, os
+	nltk.data.path.append(os.path.join(os.getcwd(), 'nltk_data'))
 	from nltk import PorterStemmer
 except ImportError:
 	print("You need NLTK installed to run this game.")
