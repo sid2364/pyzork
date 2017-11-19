@@ -1,5 +1,7 @@
 # -*- coding: utf-8 -*-
 
+import os
+
 try:
 	from nltk import PorterStemmer
 	from nltk import word_tokenize

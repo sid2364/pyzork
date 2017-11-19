@@ -1,16 +1,20 @@
 # -*- coding: utf-8 -*-
 
-import player
-import grammar
-import gameMap
-
 import sys
 import random
+import os
+
 try:
+	import nltk
+	nltk.data.path.append(os.path.join(os.getcwd(), 'nltk_data'))
 	from nltk import word_tokenize
 except ImportError:
 	print("You must have NLTK data to run this game.")
 	sys.exit()
+
+import player
+import grammar
+import gameMap
 
 what_next = ["What do you do? ", "What next? ", \
                 "What do you do next? ", "What do you do now? ", "What is your next move? "]

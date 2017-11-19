@@ -121,8 +121,8 @@ class Map:
 		clear()		
 			
 	def help(self, p_player):
-		print("Zork, help!\nThis is a text based adventure game, where you control your character using commands into the terminal.")
-		print("You may use commands like:-")
+		print("\nZork, help!\nThis is a text based adventure game, where you control your character by typing commands into the terminal.")
+		print("\tYou may use commands like:-")
 		print("Go north\t\t\tTo move your character in a particular direction.")
 		print("Look\t\t\t\tTo look around you and describe what you see.")
 		print("Pick up banana\t\t\tTo take an object from the environment you are in.")
