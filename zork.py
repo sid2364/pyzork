@@ -16,7 +16,7 @@ import grammar
 import gameMap
 
 what_next = ["What do you do? ", "What next? ", \
-                "What do you do next? ", "What do you do now? ", "What is your next move? "]
+                "What do you do next? ", "What do you do now? ", "What is your next move? ", "What now?"]
 
 did_not_catch_that = ["Did not catch that.", "What was that?", "I don't understand that.", "Could you say that again?", "Repeat that?", "Sorry?",\
 		"Did not understand that?", "Say that again?", "My vocabulary is limited. Could you say that again?"]
