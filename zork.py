@@ -62,7 +62,7 @@ def gameLoop(map_o, player_o, grammar_o):
 	while True:
 		try:
 			said = input(whatNext()).lower()
-		except KeyboardInterrupt, EOFError:
+		except KeyboardInterrupt:#, EOFError:
 			print("\n\nBuh-bye.")
 			sys.exit()
 		except:
