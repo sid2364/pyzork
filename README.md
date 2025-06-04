@@ -81,3 +81,10 @@ You can make your own map using these tags in this format:-
 ```
 
 To specify where the game starts and ends, use "start" and "end" as nameOfPlace. Check [map.json](map.json) for reference.
+
+### Customising grammar
+
+The command vocabulary can be extended without modifying the code. Edit
+[grammar_config.json](grammar_config.json) to add new keywords for actions such
+as movement or fighting. The game now also supports commands like `look door`
+to inspect a specific object that is present in the current area.
