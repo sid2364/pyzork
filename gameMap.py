@@ -127,6 +127,7 @@ class Map:
         print("\tYou may use commands like:-")
         print("Go north\t\t\tTo move your character in a particular direction.")
         print("Look\t\t\t\tTo look around you and describe what you see.")
+        print("Look door\t\t\tTo examine a specific object in sight.")
         print("Pick up banana\t\t\tTo take an object from the environment you are in.")
         print("Open door\t\t\tTo open the door, duh.")
         print("Help\t\t\t\tTo display these messages again.")
@@ -374,6 +375,24 @@ class Map:
             return
 
         print(say)
+
+    '''
+    Describe an object in the current position
+    '''
+    def examineObject(self, p_player, p_object):
+        try:
+            obj_l = self.fsm[p_player.position][objects]
+            for obj in obj_l:
+                for key in obj:
+                    if p_object == stem(key) or p_object == key:
+                        try:
+                            print(obj[key][description])
+                        except KeyError:
+                            print("You see nothing special about the " + p_object + ".")
+                        return
+            print("You see no such thing here.")
+        except KeyError:
+            print("You see nothing special here.")
 
     '''
     Returns list of objects present in the current position

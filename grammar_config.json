@@ -1,0 +1,11 @@
+{
+  "move_words": ["travel", "go", "move", "walk", "run"],
+  "direction_words": ["north", "north-east", "east", "south-east", "south", "south-west", "west", "north-west"],
+  "fight_words": ["fight", "kill", "strike", "hit", "beat", "injur", "attack", "slay"],
+  "take_words": ["take", "pick", "lift", "grab", "collect"],
+  "drop_words": ["drop", "leave", "discard"],
+  "unlock_words": ["open", "unlock"],
+  "look_words": ["look", "see", "gaze", "where", "inspect", "examine"],
+  "inventory_words": ["inventori", "inventory"],
+  "sayOkay_words": ["noth", "stand", "wait"]
+}
