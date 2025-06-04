@@ -88,3 +88,18 @@ The command vocabulary can be extended without modifying the code. Edit
 [grammar_config.json](grammar_config.json) to add new keywords for actions such
 as movement or fighting. The game now also supports commands like `look door`
 to inspect a specific object that is present in the current area.
+
+### Running the game
+
+Before starting the game for the first time you may need to install the Python
+dependencies and the required NLTK datasets. A helper script is provided:
+
+```bash
+python build/setup_env.py
+```
+
+After the script completes you can launch the game with:
+
+```bash
+python zork.py
+```

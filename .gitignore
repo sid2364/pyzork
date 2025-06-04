@@ -98,3 +98,6 @@ ENV/
 # mkdocs documentation
 /site
 
+# allow build setup script
+!build/setup_env.py
+
