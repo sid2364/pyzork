@@ -8,9 +8,10 @@ Class describes player
 		direction, direction player has last moved in
 '''
 class Player:
-	def __init__(self, position="start", have=[], direction="north"):
+	def __init__(self, position="start", have=None, direction="north"):
 		self.position = position
-		self.have = have
+		# avoid using a mutable default for the inventory list
+		self.have = list(have) if have is not None else []
 		self.direction = direction
 	def moveToNewState(self, position, direction):
 		self.position = position
@@ -23,7 +24,7 @@ class Player:
 		return 0
 	def dropItem(self, item):
 		try:
-			self.have.pop(item)
+			self.have.remove(item)
 			print("Dropped.")
 		except:
 			print("Cannot drop item.")
