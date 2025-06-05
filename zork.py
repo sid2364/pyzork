@@ -96,6 +96,7 @@ def gameLoop(map_o, player_o, grammar_o):
 
 
 def main():
+	showHelp = True
 	if gameMap.welcome():
 		map_o = gameMap.Map()
 		player_o = player.Player()
@@ -105,6 +106,7 @@ def main():
 		if map_ is not None:
 			map_o = gameMap.Map(map_)
 			player_o = player.Player(playerp_, playerh_, playerd_)
+			showHelp = False
 			print("Saved game loaded!\n")
 		else:
 			print("Starting a new game.")
@@ -115,12 +117,11 @@ def main():
 	except (KeyboardInterrupt, EOFError):
 		print("\nBye.")
 		sys.exit()
-        print('')
-        grammar_o = grammar.Grammar()
-        # Display basic instructions before the game begins
-        map_o.help(player_o)
-        print('')
-        gameLoop(map_o, player_o, grammar_o)
+	grammar_o = grammar.Grammar()
+	# Display basic instructions before the game begins
+	if showHelp:
+		map_o.help(player_o)
+	gameLoop(map_o, player_o, grammar_o)
 
 if __name__ == "__main__":
 	main()

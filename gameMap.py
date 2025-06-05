@@ -109,8 +109,8 @@ class Map:
         clear()
 
     def help(self, p_player):
-        print("\nZork, help!\nThis is a text based adventure game, where you control your character by typing commands into the terminal.")
-        print("\tYou may use commands like:-")
+        print("\nZork is a fully text based adventure game. You can let your imagination run wild as the game guides you through the story. You interact with the environment and control your character by typing commands into the terminal in natural language. Though the game understands some variations in your commands, there is a structure, as described below.")
+        print("\nYou may use commands like:-")
         print("Go north\t\t\tTo move your character in a particular direction.")
         print("Look\t\t\t\tTo look around you and describe what you see.")
         print("Look door\t\t\tTo examine a specific object in sight.")
@@ -119,7 +119,7 @@ class Map:
         print("Help\t\t\t\tTo display these messages again.")
         print("Drop pencil\t\t\tTo drop the object whereever you currently are.")
         print("Inventory\t\t\tTo check what you currently have on you.")
-        print("Hope you have fun with the game! Happy adventuring!")
+        print("\n================================================ Z O R K ================================================")
 
     '''
     Goes to the next state in the direction specified, if possible
