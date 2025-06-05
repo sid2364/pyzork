@@ -115,9 +115,12 @@ def main():
 	except (KeyboardInterrupt, EOFError):
 		print("\nBye.")
 		sys.exit()
-	print('')
-	grammar_o = grammar.Grammar()
-	gameLoop(map_o, player_o, grammar_o)
+        print('')
+        grammar_o = grammar.Grammar()
+        # Display basic instructions before the game begins
+        map_o.help(player_o)
+        print('')
+        gameLoop(map_o, player_o, grammar_o)
 
 if __name__ == "__main__":
 	main()

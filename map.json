@@ -1,303 +1,305 @@
 {
   "start": {
-        "description": "You find yourself in a dark empty crypt. There is an eerie feel to this place, and you do not feel comfortable at all. You need to get home. There is a door to the east; it's unlocked.",
-	"directions": {
-	  "east": "dragonCell"
-	},
-	"objects": [
-	  {
-		"candle": {
-		  "take": false,
-		  "description": "The only light source is a small candle burning in the corner.",
-		  "message": "It's almost out, and is stuck fast to the ground."
-		}
-	  },
-	  {
-		"bone": {
-		  "take": true,
-		  "description": "You see a pile of bones in front of you.",
-		  "message": "You now have a bone."
-		}
-	  },
-	  {
-                "door": {
-                  "take": false,
-                  "message": "You can't take the door.",
-		  "openObject": {
-                        "canOpen": true,
-                        "forOpen": [],
-                        "onOpen": {
-	                        "message" : "The door opens revealing a path towards the east."
-                     	},
-	                "alreadyOpen": {
-        	                "opened": false,
-                	        "message": "The door is already open."
-                  }
-		 }
-          	}
+    "description": "You find yourself in a dark empty crypt. There is an eerie feel to this place, and you do not feel comfortable at all. You need to get home. There is a door to the east; it's unlocked.",
+    "directions": {
+      "east": "dragonCell"
+    },
+    "objects": [
+      {
+        "candle": {
+          "take": false,
+          "description": "The only light source is a small candle burning in the corner.",
+          "message": "It's almost out, and is stuck fast to the ground."
+        }
+      },
+      {
+        "bone": {
+          "take": true,
+          "description": "You see a pile of bones in front of you.",
+          "message": "You now have a bone."
+        }
+      },
+      {
+        "door": {
+          "take": false,
+          "message": "You can't take the door.",
+          "openObject": {
+            "canOpen": true,
+            "forOpen": [],
+            "onOpen": {
+              "message": "The door opens revealing a path towards the east."
+            },
+            "alreadyOpen": {
+              "opened": false,
+              "message": "The door is already open."
+            }
           }
-	]
+        }
+      }
+    ]
   },
   "dragonCell": {
-	"description": "You see a staircase leading into the darkness in the north and a steel gate to the south.",
-	"directions": {
-	  "west": "start",
-	  "north": "dungeon",
-	  "south": "weaponsRoom"
-	},
-	"objects": [
-	  {
-		"dragon": {
-		  "take": false,
-		  "message": "You cannot be serious.",
-		  "description": "There is a giant dragon lying asleep in front of it. It seems to be guarding a passageway headed east."
-		}
-	  },
-	  {
-		"gate": {
-		  "take": false,
-		  "message": "You can't take the gate.",
-		  "openObject": {
-			"canOpen": true,
-			"forOpen": ["key"],
-			"onOpen": {
-			"directionAdd": {
-				"south": "weaponsRoom"
-				},
-			"message" : "The gate opens, you see daylight coming through from behind it."
-			  },
-		  "alreadyOpen": {
-			"opened": false,
-			"message": "The gate is already open."
-		  }
-		}
-	  }
-	}
-	],
-	"fighters": [
-	{
-	  "dragon": {
-		"killable": true,
-		"altDescription": "You see the giant dragon you had slain with its entrails strewn across the stone floor. There is a passage that leads you east.",
-		"mustUse": [
-			"sword",
-			"spear",
-			"staff"
-		],
-		"onKill": {
-			"directionAdd": {
-				"east": "portcullis"
-			},
-			"message": "The passageway leading to the east opens up."
-		},
-		"alreadyKilled": {
-			"killed": false,
-			"message": "The dragon is already dead. Why must you be such a brute?"
-		}
-	  }
-	}
-	]
+    "description": "You see a staircase leading into the darkness in the north and a steel gate to the south.",
+    "directions": {
+      "west": "start",
+      "north": "dungeon",
+      "south": "weaponsRoom"
+    },
+    "objects": [
+      {
+        "dragon": {
+          "take": false,
+          "message": "You cannot be serious.",
+          "description": "There is a giant dragon lying asleep in front of it. It seems to be guarding a passageway headed east."
+        }
+      },
+      {
+        "gate": {
+          "take": false,
+          "message": "You can't take the gate.",
+          "openObject": {
+            "canOpen": true,
+            "forOpen": [
+              "key"
+            ],
+            "onOpen": {
+              "directionAdd": {
+                "south": "weaponsRoom"
+              },
+              "message": "The gate opens, you see daylight coming through from behind it."
+            },
+            "alreadyOpen": {
+              "opened": false,
+              "message": "The gate is already open."
+            }
+          }
+        }
+      }
+    ],
+    "fighters": [
+      {
+        "dragon": {
+          "killable": true,
+          "altDescription": "You see the giant dragon you had slain with its entrails strewn across the stone floor. There is a passage that leads you east.",
+          "mustUse": [
+            "sword",
+            "spear",
+            "staff"
+          ],
+          "onKill": {
+            "directionAdd": {
+              "east": "portcullis"
+            },
+            "message": "The passageway leading to the east opens up."
+          },
+          "alreadyKilled": {
+            "killed": false,
+            "message": "The dragon is already dead. Why must you be such a brute?"
+          }
+        }
+      }
+    ]
   },
   "portcullis": {
-	"description": "A portcullis is drawn up. You are standing just outside a sprawling castle with dark walls. To your south there is a fast flowing stream.",
-	"directions": {
-	  "west": "dragonCell",
-	  "south": "river"
-	},
-	"objects": [
-	  {
-		"troll": {
-		  "take": false,
-		  "message": "How were you even planning on doing that? And more importantly, why?",
-		  "description": "A troll is wandering in the garden outside. It swings its massive club in the air every now and then."
-		}
-	  }
-	],
-	"fighters": [
-	{
-	  "troll": {
-		"killable": true,
-		"altDescription": "The troll lies dead on the grass. His tongue sticks out of his mouth making for an extremely unpleasant sight. You see a huge open space with a garden to the north.",
-		"mustUse": [
-			"spear",
-			"staff"
-		],
-		"onKill": {
-			"directionAdd": {
-				"north": "garden"
-			},
-			"message": "It seems you can now walk about in the garden freely."
-		},
-		"alreadyKilled": {
-			"killed": false,
-			"message": "The troll lies dead in front of you. How much more do you want to kill it?"
-		}
-	  }
-	}
-	]
+    "description": "A portcullis is drawn up. You are standing just outside a sprawling castle with dark walls. To your south there is a fast flowing stream. An archway to the west heads back toward the dragon's cell.",
+    "directions": {
+      "west": "dragonCell",
+      "south": "river"
+    },
+    "objects": [
+      {
+        "troll": {
+          "take": false,
+          "message": "How were you even planning on doing that? And more importantly, why?",
+          "description": "A troll is wandering in the garden outside. It swings its massive club in the air every now and then."
+        }
+      }
+    ],
+    "fighters": [
+      {
+        "troll": {
+          "killable": true,
+          "altDescription": "The troll lies dead on the grass. His tongue sticks out of his mouth making for an extremely unpleasant sight. You see a huge open space with a garden to the north.",
+          "mustUse": [
+            "spear",
+            "staff"
+          ],
+          "onKill": {
+            "directionAdd": {
+              "north": "garden"
+            },
+            "message": "It seems you can now walk about in the garden freely."
+          },
+          "alreadyKilled": {
+            "killed": false,
+            "message": "The troll lies dead in front of you. How much more do you want to kill it?"
+          }
+        }
+      }
+    ]
   },
   "dungeon": {
-	"description": "You enter a small dungeon where you see ancient runes scrawled across the walls.",
-	"directions": {
-	  "south": "dragonCell"
-	},
-	"objects": [
-	  {
-		"chest": {
-		  "take": false,
-		  "description": "You see a chest on the floor.",
-		  "message": "The chest is too heavy to lift.",
-		  "openObject": {
-				"canOpen": true,
-				"forOpen": [],
-				"onOpen": {
-					"objectAdd": {
-						"key": {
-							"take": true,
-							"description": "A single key lies inside the chest on a velvet cloth.",
-							"message": "You have a key. But you do not know what it opens."
-						}
-					},
-					"message": "You open the chest and find a key inside."
-				},
-	   		        "alreadyOpen": {
-					"opened": false,
-					"message": "The chest is already open."
-				}
-		  }
-		}
-	  }
-	]
+    "description": "You enter a small dungeon where you see ancient runes scrawled across the walls. A barred cell lies to the south, its door barely holding something big back.",
+    "directions": {
+      "south": "dragonCell"
+    },
+    "objects": [
+      {
+        "chest": {
+          "take": false,
+          "description": "You see a chest on the floor.",
+          "message": "The chest is too heavy to lift.",
+          "openObject": {
+            "canOpen": true,
+            "forOpen": [],
+            "onOpen": {
+              "objectAdd": {
+                "key": {
+                  "take": true,
+                  "description": "A single key lies inside the chest on a velvet cloth.",
+                  "message": "You have a key. But you do not know what it opens."
+                }
+              },
+              "message": "You open the chest and find a key inside."
+            },
+            "alreadyOpen": {
+              "opened": false,
+              "message": "The chest is already open."
+            }
+          }
+        }
+      }
+    ]
   },
   "garden": {
-	"description": "Wild flowers with exotic fragrances bloom about you and the light of day makes for a beautiful scene in the garden. Behind you, you see the castle. There is a gazebo up north.",
-	"directions": {
-	  "south": "portcullis",
-	  "north": "gazebo"
-	},
-	"objects": [
-	  {
-		"flower": {
-		  "take": true,
-		  "message": "The sweet scent of the flower fills your senses."
-		}
-	  }
-	]
+    "description": "Wild flowers with exotic fragrances bloom about you and the light of day makes for a beautiful scene in the garden. Behind you, you see the castle. There is a gazebo up north.",
+    "directions": {
+      "south": "portcullis",
+      "north": "gazebo"
+    },
+    "objects": [
+      {
+        "flower": {
+          "take": true,
+          "message": "The sweet scent of the flower fills your senses."
+        }
+      }
+    ]
   },
   "gazebo": {
-        "description": "You are at a gazebo. You see snow-festooned mountain peaks that extend and meet the horizon in the north. Below you there is nothing but the deepest valley you have ever seen. You see a strange sound emanating from the east.",
-	"directions": {
-	  "south": "garden",
-          "east": "library"
-	},
-	"objects": [
-	  {
-		"torch": {
-		  "take": true,
-		  "message": "You pick up the torch and carefully hold onto it.",
-		  "description": "A flaming torch lies on the edge of the gazebo. The fire shines a peculiar bright red in the sunlight."
-		}
-	  }
-	]
+    "description": "You are at a gazebo. You see snow-festooned mountain peaks that extend and meet the horizon in the north. Below you there is nothing but the deepest valley you have ever seen. You see a strange sound emanating from the east.",
+    "directions": {
+      "south": "garden",
+      "east": "library"
+    },
+    "objects": [
+      {
+        "torch": {
+          "take": true,
+          "message": "You pick up the torch and carefully hold onto it.",
+          "description": "A flaming torch lies on the edge of the gazebo. The fire shines a peculiar bright red in the sunlight."
+        }
+      }
+    ]
   },
   "library": {
-        "description": "Shelves of dusty books line this cosy hidden library. You see a strange sound emanating from the north.",
-        "directions": {
-          "west": "gazebo",
-          "north": "devRoom"
-        },
-        "objects": [
-          {
-                "duck": {
-                  "take": false,
-                  "description": "A rubber duck sits proudly on the desk.",
-                  "message": "The duck silently listens to your problems."
-                }
-          }
-        ]
+    "description": "Shelves of dusty books line this cosy hidden library. You hear a strange sound emanating from the north and can see the gazebo entrance to the west.",
+    "directions": {
+      "west": "gazebo",
+      "north": "devRoom"
+    },
+    "objects": [
+      {
+        "duck": {
+          "take": false,
+          "description": "A rubber duck sits proudly on the desk.",
+          "message": "The duck silently listens to your problems."
+        }
+      }
+    ]
   },
   "devRoom": {
-        "description": "This small chamber houses humming computers. A poster reads 'There is no place like 127.0.0.1.'",
-        "directions": {
-          "south": "library"
-        },
-        "objects": [
-          {
-                "poster": {
-                  "take": false,
-                  "description": "A programmer's joke poster hangs on the wall.",
-                  "message": "You chuckle at the nerdy humor."
-                }
-          }
-        ]
+    "description": "This small chamber houses humming computers. A poster reads 'There is no place like 127.0.0.1.' A narrow doorway to the south leads back to the library.",
+    "directions": {
+      "south": "library"
+    },
+    "objects": [
+      {
+        "poster": {
+          "take": false,
+          "description": "A programmer's joke poster hangs on the wall.",
+          "message": "You chuckle at the nerdy humor."
+        }
+      }
+    ]
   },
   "weaponsRoom": {
-	"description": "You enter a room full of weapons. You see swords, knives, spears, staves, and hammers displayed all around you. Large windows illuminate the room with the daylight outside.",
-	"directions": {
-	  "north": "dragonCell"
-	},
-	"prerequisites": [
-	  {
-		"key": {
-		  "problem": "The gate is locked.",
-		  "solution": "You unlock the gate and enter."
-		}
-	  }
-	],
-	"objects": [
-	  {
-		"window": {
-		  "take": false,
-		  "message": "Be serious."
-		}
-	  },
-	  {
-		"sword": {
-		  "take": true,
-		  "message": "Good choice. You now have a sword."
-		}
-	  },
-	  {
-		"spear": {
-		  "take": true,
-		  "message": "Great choice! You now have a spear."
-		}
-	  },
-	  {
-		"knife": {
-		  "take": true,
-		  "message": "You now have a knife."
-		}
-	  },
-	  {
-		"hammer": {
-		  "take": true,
-		  "message": "You now have a hammer."
-		}
-	  },
-	  {
-		"staff": {
-		  "take": true,
-		  "message": "Excellent choice. You now have a staff."
-		}
-	  }
-	]
+    "description": "You enter a room full of weapons. You see swords, knives, spears, staves, and hammers displayed all around you. Large windows illuminate the room with the daylight outside. A narrow door to the north seems to lead back toward the dragon's lair.",
+    "directions": {
+      "north": "dragonCell"
+    },
+    "prerequisites": [
+      {
+        "key": {
+          "problem": "The gate is locked.",
+          "solution": "You unlock the gate and enter."
+        }
+      }
+    ],
+    "objects": [
+      {
+        "window": {
+          "take": false,
+          "message": "Be serious."
+        }
+      },
+      {
+        "sword": {
+          "take": true,
+          "message": "Good choice. You now have a sword."
+        }
+      },
+      {
+        "spear": {
+          "take": true,
+          "message": "Great choice! You now have a spear."
+        }
+      },
+      {
+        "knife": {
+          "take": true,
+          "message": "You now have a knife."
+        }
+      },
+      {
+        "hammer": {
+          "take": true,
+          "message": "You now have a hammer."
+        }
+      },
+      {
+        "staff": {
+          "take": true,
+          "message": "Excellent choice. You now have a staff."
+        }
+      }
+    ]
   },
   "river": {
-	"description": "You are at the river. It's flowing north. On the other side of the river in the east you see a deep, dark forest.",
-	"directions": {
-	  "east": "end"
-	},
-	"prerequisites": [
-	  {
-		"torch": {
-		  "problem": "The stream says to you, 'It eats many things; it fears me but not the wind. But give me enough and I will subside momentarily.' You cannot get past the stream.",
-		  "solution": "The water in the river bends and parts. You see how deep the river bed is without the water there."
-		}
-	  }
-	]
+    "description": "You are at the river. It's flowing north. On the other side of the river in the east you see a deep, dark forest.",
+    "directions": {
+      "east": "end"
+    },
+    "prerequisites": [
+      {
+        "torch": {
+          "problem": "The stream says to you, 'It eats many things; it fears me but not the wind. But give me enough and I will subside momentarily.' You cannot get past the stream.",
+          "solution": "The water in the river bends and parts. You see how deep the river bed is without the water there."
+        }
+      }
+    ]
   },
   "end": {
-	"description": "You cross the river and find yourself in a huge forest. It looks vaguely familiar. Suddenly a group of tribesmen come out and greet you. Oddly enough, you understand their tongue, and they treat you as one of their own, not feeling threatened by you at all. It hits you then; you have reached home."
+    "description": "You cross the river and find yourself in a huge forest. It looks vaguely familiar. Suddenly a group of tribesmen come out and greet you. Oddly enough, you understand their tongue, and they treat you as one of their own, not feeling threatened by you at all. It hits you then; you have reached home."
   }
 }
