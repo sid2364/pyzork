@@ -1,23 +1,17 @@
 # -*- coding: utf-8 -*-
 
-from __future__ import print_function, with_statement
 import json
-import sets
 import os
 import pickle
 import sys
+
 try:
-    import nltk, os
+    import nltk
     nltk.data.path.append(os.path.join(os.getcwd(), 'nltk_data'))
     from nltk import PorterStemmer
 except ImportError:
     print("You need NLTK installed to run this game.")
     sys.exit(0)
-
-try:
-    input = raw_input
-except NameError:
-    print("Cannot port input.")
 
 mapFile = "map.json"
 saveGameMapFile = "savedGameMap.dat"
@@ -50,16 +44,8 @@ alreadyKilled = "alreadyKilled"
 killed = "killed"
 end = "end"
 
-def byteify(data, ignore_dicts = False):
-    if isinstance(data, str):
-        return data.encode('utf-8')
-    if isinstance(data, list):
-        return [ byteify(item, ignore_dicts=True) for item in data ]
-    if isinstance(data, dict) and not ignore_dicts:
-        return {
-        byteify(key, ignore_dicts=True): byteify(value, ignore_dicts=True)
-        for key, value in data.items()
-        }
+def byteify(data, ignore_dicts=False):
+    """Compatibility shim from the old Python 2 implementation."""
     return data
 
 def clear():
@@ -86,9 +72,9 @@ def stem(word):
     return ps.stem(word)
 
 def saveGame(mapDict, playerInfo):
-    with open(saveGameMapFile, 'w') as f:
+    with open(saveGameMapFile, 'wb') as f:
         pickle.dump(mapDict, f)
-    with open(saveGamePlayerFile, 'w') as f:
+    with open(saveGamePlayerFile, 'wb') as f:
         playerState = (playerInfo.position, playerInfo.direction, playerInfo.have)
         pickle.dump(playerState, f)
 
@@ -112,8 +98,8 @@ class Map:
             self.fsm = mapDict
         else:
             try:
-                map_f = open(mapFile, 'r')
-                self.fsm = json.load(map_f, object_hook=byteify)
+                with open(mapFile, 'r') as map_f:
+                    self.fsm = json.load(map_f)
             except (IOError, OSError):
                 print("Cannot load game. Map file not found.")
                 sys.exit(0)
