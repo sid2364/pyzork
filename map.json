@@ -1,6 +1,6 @@
 {
   "start": {
-	"description": "You find yourself in a dark empty crypt. There is an eerie feel to this place, and you do not feel uncomfortable at all. You need to get home. There is a door to the east; it's unlocked.",
+        "description": "You find yourself in a dark empty crypt. There is an eerie feel to this place, and you do not feel comfortable at all. You need to get home. There is a door to the east; it's unlocked.",
 	"directions": {
 	  "east": "dragonCell"
 	},
@@ -50,7 +50,7 @@
 		"dragon": {
 		  "take": false,
 		  "message": "You cannot be serious.",
-		  "description": "There is a giant dragon that lay sleeping in front of it. It seems to be guarding a passage way headed east."
+		  "description": "There is a giant dragon lying asleep in front of it. It seems to be guarding a passageway headed east."
 		}
 	  },
 	  {
@@ -78,7 +78,7 @@
 	{
 	  "dragon": {
 		"killable": true,
-		"altDescription": "You see the giant dragon you had slain with it's entrails strewn across the stone floor. There is a passage that leads you east.",
+		"altDescription": "You see the giant dragon you had slain with its entrails strewn across the stone floor. There is a passage that leads you east.",
 		"mustUse": [
 			"sword",
 			"spear",
@@ -88,7 +88,7 @@
 			"directionAdd": {
 				"east": "portcullis"
 			},
-			"message": "The passage way leading to the east opens up."
+			"message": "The passageway leading to the east opens up."
 		},
 		"alreadyKilled": {
 			"killed": false,
@@ -109,7 +109,7 @@
 		"troll": {
 		  "take": false,
 		  "message": "How were you even planning on doing that? And more importantly, why?",
-		  "description": "A troll is wandering in the garden outside. It swings it's massive club in the air every now and then."
+		  "description": "A troll is wandering in the garden outside. It swings its massive club in the air every now and then."
 		}
 	  }
 	],
@@ -117,7 +117,7 @@
 	{
 	  "troll": {
 		"killable": true,
-		"altDescription": "The troll lays dead on the grass. His tongue sticks out of his mouth making for an extremely unpleasant sight. You see a huge open space with a garden to the north.",
+		"altDescription": "The troll lies dead on the grass. His tongue sticks out of his mouth making for an extremely unpleasant sight. You see a huge open space with a garden to the north.",
 		"mustUse": [
 			"spear",
 			"staff"
@@ -130,7 +130,7 @@
 		},
 		"alreadyKilled": {
 			"killed": false,
-			"message": "The troll lay dead in front of you. How much more do you want to kill it?"
+			"message": "The troll lies dead in front of you. How much more do you want to kill it?"
 		}
 	  }
 	}
@@ -185,22 +185,54 @@
 	]
   },
   "gazebo": {
-	"description": "You are at a gazebo. You see snow-festooned mountain peaks that extend and meet the horizon in the north. Below you there is nothing but the deepest valley you have ever seen.",
+        "description": "You are at a gazebo. You see snow-festooned mountain peaks that extend and meet the horizon in the north. Below you there is nothing but the deepest valley you have ever seen. You see a strange sound emanating from the east.",
 	"directions": {
-	  "south": "garden"
+	  "south": "garden",
+          "east": "library"
 	},
 	"objects": [
 	  {
 		"torch": {
 		  "take": true,
-		  "message": "You pick up the torch and carefully hold on it.",
+		  "message": "You pick up the torch and carefully hold onto it.",
 		  "description": "A flaming torch lies on the edge of the gazebo. The fire shines a peculiar bright red in the sunlight."
 		}
 	  }
 	]
   },
+  "library": {
+        "description": "Shelves of dusty books line this cosy hidden library. You see a strange sound emanating from the north.",
+        "directions": {
+          "west": "gazebo",
+          "north": "devRoom"
+        },
+        "objects": [
+          {
+                "duck": {
+                  "take": false,
+                  "description": "A rubber duck sits proudly on the desk.",
+                  "message": "The duck silently listens to your problems."
+                }
+          }
+        ]
+  },
+  "devRoom": {
+        "description": "This small chamber houses humming computers. A poster reads 'There is no place like 127.0.0.1.'",
+        "directions": {
+          "south": "library"
+        },
+        "objects": [
+          {
+                "poster": {
+                  "take": false,
+                  "description": "A programmer's joke poster hangs on the wall.",
+                  "message": "You chuckle at the nerdy humor."
+                }
+          }
+        ]
+  },
   "weaponsRoom": {
-	"description": "You enter a room full of weapons. You see swords, knives, spears, staffs, and hammers displayed all around you. Large windows illuminate the room with the daylight outside.",
+	"description": "You enter a room full of weapons. You see swords, knives, spears, staves, and hammers displayed all around you. Large windows illuminate the room with the daylight outside.",
 	"directions": {
 	  "north": "dragonCell"
 	},
@@ -266,6 +298,6 @@
 	]
   },
   "end": {
-	"description": "You cross the river and find yourself in a huge forest. It looks vaguely familiar. Suddenly a group of tribemen come out and greet you. Oddly enough, you understand their tongue, and they treat you as one of their own not feeling threatened by you at all. It hits you then; you have reached home."
+	"description": "You cross the river and find yourself in a huge forest. It looks vaguely familiar. Suddenly a group of tribesmen come out and greet you. Oddly enough, you understand their tongue, and they treat you as one of their own, not feeling threatened by you at all. It hits you then; you have reached home."
   }
 }
