@@ -29,7 +29,7 @@ def ensure_nltk_data() -> None:
     os.makedirs(data_dir, exist_ok=True)
     nltk.data.path.append(data_dir)
 
-    for resource in ["punkt", "stopwords"]:
+    for resource in ["punkt", "punkt_tab", "stopwords"]:
         try:
             nltk.data.find(f"tokenizers/{resource}" if resource == "punkt" else f"corpora/{resource}")
         except LookupError:

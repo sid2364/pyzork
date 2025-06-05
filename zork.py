@@ -15,8 +15,8 @@ import player
 import grammar
 import gameMap
 
-what_next = ["What do you do? ", "What next? ", \
-                "What do you do next? ", "What do you do now? ", "What is your next move? ", "What now?"]
+what_next = ["What do you do? ", "What next? ",
+			 "What do you do next? ", "What do you do now? ", "What is your next move? ", "What now? "]
 
 did_not_catch_that = [
         "Did not catch that.",
