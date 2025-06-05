@@ -25,7 +25,7 @@ GRAMMAR_CONFIG = os.path.join(os.path.dirname(__file__), 'grammar_config.json')
 with_ = "with"
 from_ = "from"
 help_ = "help"
-wildcard = "\_(**)_/"
+wildcard = r"\_(**)_/"
 
 what_next = ["What do you do? ", "What next? ", \
                 "What do you do next? "]

@@ -17,7 +17,6 @@ nltk_stub.word_tokenize = word_tokenize
 nltk_stub.corpus = types.SimpleNamespace(stopwords=types.SimpleNamespace(words=lambda lang: []))
 nltk_stub.data = types.SimpleNamespace(path=[])
 sys.modules.setdefault('nltk', nltk_stub)
-sys.modules.setdefault('sets', types.ModuleType('sets'))
 
 import player
 import gameMap
