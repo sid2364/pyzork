@@ -54,7 +54,7 @@ def do(p_input, map_o, player_o, grammar):
         if suggestion:
             func, misc = grammar.getGrammarType(suggestion)
             if func is not None:
-                print(f"Did you mean '{suggestion}'?")
+                # print(f"Did you mean '{suggestion}'?")
                 getattr(map_o, func)(player_o, *misc)
                 return 0
         sayDidNotCatchThat()

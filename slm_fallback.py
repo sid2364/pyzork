@@ -6,10 +6,10 @@ from typing import Optional
 
 import grammar
 
-from transformers import AutoTokenizer, AutoModelForCausalLM
+from transformers import AutoTokenizer, AutoModelForSeq2SeqLM
 import torch
 
-MODEL_NAME = "meta-llama/Llama-2-7b-chat-hf"
+MODEL_NAME = "google/flan-t5-large"
 _tokenizer = None
 _model = None
 
@@ -19,7 +19,7 @@ def _load() -> None:
     if _tokenizer is None or _model is None:
         _tokenizer = AutoTokenizer.from_pretrained(MODEL_NAME)
         _tokenizer.pad_token = _tokenizer.eos_token
-        _model = AutoModelForCausalLM.from_pretrained(MODEL_NAME)
+        _model = AutoModelForSeq2SeqLM.from_pretrained(MODEL_NAME)
         _model.to("cpu")
 
 
@@ -42,9 +42,9 @@ def suggest_command(user_text: str, player, game_map, gram) -> Optional[str]:
         "You are a command suggestion engine for a text adventure game. You need to give one single command, no more."
         " Some of the following are in JSON."
         "Use the following grammar for valid commands: "
-        f"{grammar_text}\n"
+        #f"{grammar_text}\n"
         "Example command: 'walk east', 'take sword', 'fight dragon', 'look south'"
-        f"Inventory: {inventory}\nLocation: {location}\n"
+        #f"Inventory: {inventory}\nLocation: {location}\n"
         f"User command: {user_text}\nGame command:"
     )
     inputs = _tokenizer(
@@ -69,8 +69,10 @@ def suggest_command(user_text: str, player, game_map, gram) -> Optional[str]:
     generated = _tokenizer.decode(outputs[0], skip_special_tokens=True)
     suggestion = generated[len(prompt) :].strip().split("\n")[0]
 
-    print("genrated", generated)
-    print("suggestion", suggestion)
+    suggestion = generated
+
+    #print("generated", generated)
+    #print("suggestion", suggestion)
     print(f"You hear a faint voice from the skies... Did you mean '{suggestion}'?")
 
     fn, _ = gram.getGrammarType(suggestion)

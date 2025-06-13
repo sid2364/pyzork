@@ -11,7 +11,7 @@ import os
 import subprocess
 import sys
 import slm_fallback
-from transformers import AutoModelForCausalLM, AutoTokenizer
+from transformers import AutoModelForSeq2SeqLM, AutoTokenizer
 
 from huggingface_hub import login
 
@@ -52,7 +52,7 @@ def ensure_slm_model() -> None:
     """Download the small language model used for fallback commands."""
 
     AutoTokenizer.from_pretrained(slm_fallback.MODEL_NAME)
-    AutoModelForCausalLM.from_pretrained(slm_fallback.MODEL_NAME)
+    AutoModelForSeq2SeqLM.from_pretrained(slm_fallback.MODEL_NAME)
 
 
 def main() -> None:
