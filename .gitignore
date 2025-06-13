@@ -99,5 +99,8 @@ ENV/
 /site
 
 # allow build setup script
-!build/setup_env.py
+!setup_env.py
 
+# env file with HF_TOKEN
+.env
+!.env_example

@@ -10,7 +10,16 @@ import importlib
 import os
 import subprocess
 import sys
+import slm_fallback
+from transformers import AutoModelForCausalLM, AutoTokenizer
 
+from huggingface_hub import login
+
+# Load from .env if you like
+from dotenv import load_dotenv
+load_dotenv()
+
+login(token=os.environ["HF_TOKEN"])
 
 def ensure_package(pkg_name: str) -> None:
     """Ensure that a package is installed via pip."""
@@ -22,9 +31,9 @@ def ensure_package(pkg_name: str) -> None:
 
 def ensure_nltk_data() -> None:
     """Download NLTK resources used by the game if they are missing."""
-    import nltk  # noqa: E402 - imported after ensure_package
+    import nltk
 
-    repo_root = os.path.dirname(os.path.dirname(os.path.abspath(__file__)))
+    repo_root = os.path.dirname(os.path.abspath(__file__))
     data_dir = os.path.join(repo_root, "nltk_data")
     os.makedirs(data_dir, exist_ok=True)
     nltk.data.path.append(data_dir)
@@ -39,12 +48,19 @@ def ensure_nltk_data() -> None:
         except LookupError:
             nltk.download(resource, download_dir=data_dir)
 
+def ensure_slm_model() -> None:
+    """Download the small language model used for fallback commands."""
+
+    AutoTokenizer.from_pretrained(slm_fallback.MODEL_NAME)
+    AutoModelForCausalLM.from_pretrained(slm_fallback.MODEL_NAME)
+
 
 def main() -> None:
     ensure_package("nltk")
     ensure_package("transformers")
     ensure_package("torch")
     ensure_nltk_data()
+    ensure_slm_model()
     print("All dependencies installed. You can now run zork.py")
 
 

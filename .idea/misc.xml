@@ -1,6 +1,10 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
-  <component name="ProjectRootManager" version="2" languageLevel="JDK_17" project-jdk-name="Python 3.8" project-jdk-type="Python SDK">
-    <output url="file://$PROJECT_DIR$/out" />
+  <component name="Black">
+    <option name="sdkName" value="Python 3.12 virtualenv at ~/Study/brainybytes/Learning_Dynamics/learning_dynamics_env" />
+  </component>
+  <component name="ProjectRootManager" version="2" project-jdk-name="Python 3.12 virtualenv at ~/Study/brainybytes/Learning_Dynamics/learning_dynamics_env" project-jdk-type="Python SDK" />
+  <component name="PythonCompatibilityInspectionAdvertiser">
+    <option name="version" value="3" />
   </component>
 </project>
