@@ -92,7 +92,8 @@ to inspect a specific object that is present in the current area.
 ### Running the game
 
 Before starting the game for the first time you may need to install the Python
-dependencies and the required NLTK datasets. A helper script is provided:
+dependencies (including the small language model used for command fallback) and
+the required NLTK datasets. A helper script is provided:
 
 ```bash
 python build/setup_env.py

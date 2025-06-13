@@ -7,7 +7,8 @@ import sys
 
 try:
     import nltk
-    nltk.data.path.append(os.path.join(os.getcwd(), 'nltk_data'))
+
+    nltk.data.path.append(os.path.join(os.getcwd(), "nltk_data"))
     from nltk import PorterStemmer
 except ImportError:
     print("You need NLTK installed to run this game.")
@@ -44,18 +45,25 @@ alreadyKilled = "alreadyKilled"
 killed = "killed"
 end = "end"
 
+
 def byteify(data, ignore_dicts=False):
     """Compatibility shim from the old Python 2 implementation."""
     return data
 
+
 def clear():
-    os.system('cls' if os.name == 'nt' else 'clear')
+    os.system("cls" if os.name == "nt" else "clear")
+
 
 def welcome():
     clear()
-    print("================================================ Z O R K ================================================")
+    print(
+        "================================================ Z O R K ================================================"
+    )
     print("Welcome to Zork!")
-    print("This is a text based adventure game, where you control your character by typing commands into the terminal.")
+    print(
+        "This is a text based adventure game, where you control your character by typing commands into the terminal."
+    )
     print("Hope you have fun with the game! Happy adventuring!")
     if not os.path.exists(saveGameMapFile) and not os.path.exists(saveGamePlayerFile):
         return 1
@@ -67,16 +75,19 @@ def welcome():
         sys.exit()
     return 0 if said.lower() == "y" else 1
 
+
 def stem(word):
     ps = PorterStemmer()
     return ps.stem(word)
 
+
 def saveGame(mapDict, playerInfo):
-    with open(saveGameMapFile, 'wb') as f:
+    with open(saveGameMapFile, "wb") as f:
         pickle.dump(mapDict, f)
-    with open(saveGamePlayerFile, 'wb') as f:
+    with open(saveGamePlayerFile, "wb") as f:
         playerState = (playerInfo.position, playerInfo.direction, playerInfo.have)
         pickle.dump(playerState, f)
+
 
 def loadGame():
     try:
@@ -92,24 +103,26 @@ def loadGame():
         return None, None, None, None
     return mapDict, p, d, h
 
+
 class Map:
     def __init__(self, mapDict=None):
         if mapDict is not None:
             self.fsm = mapDict
         else:
             try:
-                with open(mapFile, 'r') as map_f:
+                with open(mapFile, "r") as map_f:
                     self.fsm = json.load(map_f)
             except (IOError, OSError):
                 print("Cannot load game. Map file not found.")
                 sys.exit(0)
 
-
     def mainMenu(self, p_player):
         clear()
 
     def help(self, p_player):
-        print("\nZork is a fully text based adventure game. You can let your imagination run wild as the game guides you through the story. You interact with the environment and control your character by typing commands into the terminal in natural language. Though the game understands some variations in your commands, there is a structure, as described below.")
+        print(
+            "\nZork is a fully text based adventure game. You can let your imagination run wild as the game guides you through the story. You interact with the environment and control your character by typing commands into the terminal in natural language. Though the game understands some variations in your commands, there is a structure, as described below."
+        )
         print("\nYou may use commands like:-")
         print("Go north\t\t\tTo move your character in a particular direction.")
         print("Look\t\t\t\tTo look around you and describe what you see.")
@@ -119,11 +132,14 @@ class Map:
         print("Help\t\t\t\tTo display these messages again.")
         print("Drop pencil\t\t\tTo drop the object whereever you currently are.")
         print("Inventory\t\t\tTo check what you currently have on you.")
-        print("\n================================================ Z O R K ================================================")
+        print(
+            "\n================================================ Z O R K ================================================"
+        )
 
-    '''
+    """
     Goes to the next state in the direction specified, if possible
-    '''
+    """
+
     def goToNextState(self, p_player, p_direction):
         prerequisites_d = {}
         try:
@@ -132,7 +148,7 @@ class Map:
             print("You can't go " + p_direction + ".")
             return
         try:
-            prerequisites_d =  self.fsm[newState][prerequisites]
+            prerequisites_d = self.fsm[newState][prerequisites]
         except KeyError:
             pass
         for item in prerequisites_d:
@@ -159,9 +175,10 @@ class Map:
             sys.exit()
         return
 
-    '''
+    """
     Tries to take the object from current position
-    '''
+    """
+
     def takeObject(self, p_player, p_object):
         try:
             obj_l = self.fsm[p_player.position][objects]
@@ -192,9 +209,10 @@ class Map:
             say = "You do not hold anything at the moment."
         print(say)
 
-    '''
+    """
     Drops the object in the current position
-    '''
+    """
+
     def dropObject(self, p_player, p_object):
         if p_object not in p_player.have:
             print("Cannot drop something you don't have!")
@@ -210,16 +228,19 @@ class Map:
             p_object: {
                 "take": True,
                 "message": "You have picked up the " + p_object + ".",
-                "description": "You see the " + p_object + " you dropped on the ground."
+                "description": "You see the "
+                + p_object
+                + " you dropped on the ground.",
             }
         }
         obj_l.append(obj_d)
         p_player.have.remove(p_object)
         print("Dropped.")
 
-    '''
+    """
     Tries to kill the fighter in the current position
-    '''
+    """
+
     def killFighter(self, p_player, p_fighter, p_weapon=None):
         if p_weapon is None:
             print("You do not stand a chance if you fight with your bare hands.")
@@ -261,9 +282,11 @@ class Map:
                                 say += "the "
                             say = foundFighter + "."
                             return
-                        if p_weapon in fighter[key][mustUse] or not fighter[key][mustUse]:
-                            say = "You draw your " + p_weapon + \
-                                " and slay "
+                        if (
+                            p_weapon in fighter[key][mustUse]
+                            or not fighter[key][mustUse]
+                        ):
+                            say = "You draw your " + p_weapon + " and slay "
                             if foundFighter[0].upper() != foundFighter[0]:
                                 say += "the "
                             say += foundFighter + "."
@@ -271,33 +294,46 @@ class Map:
                             fighter[key][alreadyKilled][killed] = True
                             try:
                                 newDirection = fighter[key][onKill][directionAdd]
-                                self.fsm[p_player.position][directions].update(newDirection)
+                                self.fsm[p_player.position][directions].update(
+                                    newDirection
+                                )
                                 print(fighter[key][onKill][message])
                             except KeyError:
                                 pass
                         else:
-                            say = "You do not possess a weapon worthy " + \
-                                "of this battle. You decide to live " + \
-                                "and let live."
+                            say = (
+                                "You do not possess a weapon worthy "
+                                + "of this battle. You decide to live "
+                                + "and let live."
+                            )
                             print(say)
                             return
                         for obj in self.fsm[p_player.position][objects]:
                             for k in obj:
                                 if k == foundFighter:
-                                    obj[k][description] = str(fighter[key][altDescription])
+                                    obj[k][description] = str(
+                                        fighter[key][altDescription]
+                                    )
                                     obj[k][take] = False
 
         except KeyError:
-            print("There is no " + p_fighter + " you can tussle with here. With a word you can get what you came for.")
+            print(
+                "There is no "
+                + p_fighter
+                + " you can tussle with here. With a word you can get what you came for."
+            )
 
-    '''
+    """
     Prints the description of current position
-    '''
+    """
+
     def whereAmI(self, p_player):
         try:
             print(self.fsm[p_player.position][description])
-        except KeyError: # Map region has no description (but why?)
-            print("There is darkness all around you. All you can hear is your heavy breathing...")
+        except KeyError:  # Map region has no description (but why?)
+            print(
+                "There is darkness all around you. All you can hear is your heavy breathing..."
+            )
         try:
             for obj in self.fsm[p_player.position][objects]:
                 for k in obj:
@@ -305,11 +341,13 @@ class Map:
                         print(obj[k][description])
                     except:
                         pass
-        except KeyError: # map has no description (but, why?)
+        except KeyError:  # map has no description (but, why?)
             pass
-    '''
+
+    """
     Tries to open object in the current position
-    '''
+    """
+
     def openObject(self, p_player, p_object):
         say = "There is no such thing you see here."
         try:
@@ -319,22 +357,33 @@ class Map:
                 for key in obj:
                     if p_object == str(key):
                         if obj[key][openObject][canOpen]:
-                            if set(obj[key][openObject][forOpen]).issubset(set(p_player.have)) or obj[key][openObject][forOpen] == []:
+                            if (
+                                set(obj[key][openObject][forOpen]).issubset(
+                                    set(p_player.have)
+                                )
+                                or obj[key][openObject][forOpen] == []
+                            ):
                                 if obj[key][openObject][alreadyOpen][opened]:
                                     say = obj[key][openObject][alreadyOpen][message]
                                     print(say)
                                     return
                                 saidAlready = False
                                 try:
-                                    newDirection = obj[key][openObject][onOpen][directionAdd]
-                                    self.fsm[p_player.position][directions].update(newDirection)
+                                    newDirection = obj[key][openObject][onOpen][
+                                        directionAdd
+                                    ]
+                                    self.fsm[p_player.position][directions].update(
+                                        newDirection
+                                    )
                                     print(obj[key][openObject][onOpen][message])
                                     saidAlready = True
                                 except KeyError:
                                     pass
                                 # Seperate try-except because directionAdd/objectAdd may not exist together
                                 try:
-                                    self.fsm[p_player.position][objects].append(obj[key][openObject][onOpen][objectAdd])
+                                    self.fsm[p_player.position][objects].append(
+                                        obj[key][openObject][onOpen][objectAdd]
+                                    )
                                     if not saidAlready:
                                         print(obj[key][openObject][onOpen][message])
                                         saidAlready = True
@@ -351,21 +400,29 @@ class Map:
                                     pass
                                 return
                             else:
-                                say = "You do not have the required object to open this."
+                                say = (
+                                    "You do not have the required object to open this."
+                                )
                         else:
                             say = "It's not possible to open the " + p_object + "."
 
-        #print(say)
+        # print(say)
         except KeyError:
             print("You cannot do that.")
             return
 
         print(say)
 
-    '''
+    """
     Describe an object in the current position
-    '''
+    """
+
     def examineObject(self, p_player, p_object):
+        if p_object in p_player.have or stem(p_object) in [
+            stem(o) for o in p_player.have
+        ]:
+            print(f"You are already holding the {p_object}.")
+            return
         try:
             obj_l = self.fsm[p_player.position][objects]
             for obj in obj_l:
@@ -380,9 +437,10 @@ class Map:
         except KeyError:
             print("You see nothing special here.")
 
-    '''
+    """
     Returns list of objects present in the current position
-    '''
+    """
+
     def getObjectList(self, p_player):
         objects_ret = []
         try:
@@ -394,9 +452,10 @@ class Map:
             return []
         return objects_ret
 
-    '''
+    """
     Returns list of fighters present in the current position
-    '''
+    """
+
     def getFighterList(self, p_player):
         fighters_ret = []
         try:
@@ -408,8 +467,10 @@ class Map:
             return []
 
         return fighters_ret
+
     def sayOkay(self, p_player):
         print("Okay then...")
+
 
 if __name__ == "__main__":
     map_o = Map()
