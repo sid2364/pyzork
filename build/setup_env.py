@@ -31,13 +31,19 @@ def ensure_nltk_data() -> None:
 
     for resource in ["punkt", "punkt_tab", "stopwords"]:
         try:
-            nltk.data.find(f"tokenizers/{resource}" if resource == "punkt" else f"corpora/{resource}")
+            nltk.data.find(
+                f"tokenizers/{resource}"
+                if resource == "punkt"
+                else f"corpora/{resource}"
+            )
         except LookupError:
             nltk.download(resource, download_dir=data_dir)
 
 
 def main() -> None:
     ensure_package("nltk")
+    ensure_package("transformers")
+    ensure_package("torch")
     ensure_nltk_data()
     print("All dependencies installed. You can now run zork.py")
 
